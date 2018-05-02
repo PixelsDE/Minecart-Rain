@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="TeamCreate">
+    <output-path>$PROJECT_DIR$/../../Mc Server/plugins</output-path>
+    <root id="archive" name="TeamCreate.jar">
+      <element id="module-output" name="TeamCreate" />
+    </root>
+  </artifact>
+</component>

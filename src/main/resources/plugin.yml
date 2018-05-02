@@ -1,0 +1,25 @@
+name: Minecart-Rain
+version: 2.0
+main: de.bypixels.teamcreate.game.main.MainSystem
+authors: [byPixels]
+description: TeamCreate Plugin Minecart-Rain System
+
+commands:
+  start:
+    description: Startet das Spiel!
+  dataofgame:
+    description: Setzt die Daten des Spiels
+  backinarena:
+    description: Setzt die Location wo die Spieler spawnen wenn das Game over ist
+  setarena:
+    description: Setzt einige Daten zur Arena
+  deathlocation:
+    description: Setzt die Death-Player Location
+  minecartdespawnhigh:
+    description: Setzt die Höhe wo Minecarts spawnen
+  backinarena:
+    description: Setzt die Location wo gewonnene Spieler hingeportet werden
+  highminecartspawn:
+    description: Setzt die Höhe wo die Minecarts spawnen
+  reloadconfig:
+    description: Reloadet die Config
