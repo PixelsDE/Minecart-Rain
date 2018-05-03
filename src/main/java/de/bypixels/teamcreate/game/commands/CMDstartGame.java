@@ -7,6 +7,9 @@ package de.bypixels.teamcreate.game.commands;
 
 
 import de.bypixels.teamcreate.game.main.MainSystem;
+import de.bypixels.teamcreate.game.util.DataAboutArena;
+import de.bypixels.teamcreate.game.util.DataAboutGame;
+import de.bypixels.teamcreate.game.util.MinecartRain;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,21 +25,24 @@ public class CMDstartGame implements CommandExecutor {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (player.hasPermission("start")) {
-                    for (Player all: Bukkit.getOnlinePlayers()){
-
+                    for (Player all : Bukkit.getOnlinePlayers()) {
                         MainSystem.isPlaying.add(all);
-                        all.sendMessage(MainSystem.PREFIX+"§aDas Spiel hat begonnen viel Glück!");
+                        all.sendMessage(MainSystem.PREFIX + "§aDas Spiel hat begonnen viel Glück!");
+                        all.teleport(DataAboutArena.getArenaMiddle());
                     }
 
-                }
+                    MinecartRain.startMinecartRain();
+
+            /*        for (Player all : Bukkit.getOnlinePlayers())
+                        MinecartRain.setPlayerInMinecart(all);
+                */}
+                //Delay bevor das Spiel beginnt
+
             }
         }
 
-
         return false;
     }
-
-
 
 
 }

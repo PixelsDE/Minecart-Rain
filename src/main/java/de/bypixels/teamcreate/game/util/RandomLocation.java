@@ -13,18 +13,20 @@ import javax.xml.crypto.Data;
 public class RandomLocation {
 
 
-    //gets Random-Location through @param x
+    /** @param bound of RandomNumber    **/
     public static Location getRandomLocation() {
 
         double x = DataAboutArena.getArenaBoundX() + Math.random() * 2 * DataAboutGame.getBoundaryOfMinecartSpawn() - DataAboutGame.getBoundaryOfMinecartSpawn();
-        double y = DataAboutArena.getHighWhereMinecartsSpawn();
+        double y = DataAboutGame.getHighWhereMinecartsSpawn();
         double z = DataAboutArena.getArenaBoundZ() + Math.random() * 2 * DataAboutGame.getBoundaryOfMinecartSpawn() - DataAboutGame.getBoundaryOfMinecartSpawn();
         World world = Bukkit.getWorld(DataAboutArena.getArenaWorldName());
         return new Location(world, x, y, z);
     }
 
+
     public static double getRandomNumber(int bound) {
         return Math.random() * 2 * bound - bound;
+
     }
 
 }

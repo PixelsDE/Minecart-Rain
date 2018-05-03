@@ -1,5 +1,8 @@
 package de.bypixels.teamcreate.game.util;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -18,13 +21,13 @@ import java.io.IOException;
 public class DataAboutArena {
 
 
-    public static File file = new File("plugins/TeamCreate/location.yml");
+    public static File file = new File("plugins/Minecart-Rain/location.yml");
     public static YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
-    private static int highWhereMinecartsDespawn;
+
     private static int ArenaBoundZ;
     private static int ArenaBoundX;
-    private static int highWhereMinecartsSpawn;
+    private static int ArenaBoundY;
     private static String ArenaWorld;
     private static String deathWorldName;
     private static int deathWorldX;
@@ -34,18 +37,10 @@ public class DataAboutArena {
     private static int backInArenaY;
     private static int backInArenaZ;
     private static String backInArenaWorldName;
+    private static Location ArenaMiddle;
 
 
-    //Setzt die oben genannten Daten in die Datei
-    public static void setMinecartsDespawnHighInConfig() {
-        DataAboutArena.cfg.addDefault("HighWhereMinecartsDespawn", DataAboutArena.highWhereMinecartsDespawn);
-        DataAboutArena.cfg.options().copyDefaults(true);
-        try {
-            DataAboutArena.cfg.save(DataAboutArena.file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     public static void setBackInArenaLocInConfig() {
         cfg.set("backInArenaX", backInArenaX);
@@ -59,22 +54,13 @@ public class DataAboutArena {
         }
     }
 
-    //Setzt die oben genannten Daten in die Datei
-    public static void setMinecartSpawnHighInConfig() {
-        DataAboutArena.cfg.addDefault("HighWhereMinecartsSpawn", highWhereMinecartsSpawn);
-        DataAboutArena.cfg.options().copyDefaults(true);
-        try {
-            DataAboutArena.cfg.save(DataAboutArena.file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
     //Setzt die oben genannten Daten in die Datei
     public static void setArenaInConfig() {
-        cfg.set("ArenaBoundZ", DataAboutArena.ArenaBoundZ);
         cfg.set("ArenaBoundX", DataAboutArena.ArenaBoundX);
+        cfg.set("ArenaBoundY", DataAboutArena.ArenaBoundY);
+        cfg.set("ArenaBoundZ", DataAboutArena.ArenaBoundZ);
         cfg.set("ArenaWorld", DataAboutArena.ArenaWorld);
         try {
             DataAboutArena.cfg.save(DataAboutArena.file);
@@ -86,10 +72,10 @@ public class DataAboutArena {
 
     //Setzt die oben genannten Werte der Deathloc in die Config
     public static void setDeathLocInConfig() {
-        DataAboutArena.cfg.set("deathx", deathWorldX);
-        DataAboutArena.cfg.set("deathy", deathWorldY);
-        DataAboutArena.cfg.set("deathz", deathWorldZ);
-        DataAboutArena.cfg.set("deathworld", deathWorldName);
+        DataAboutArena.cfg.set("DeathWorldX", deathWorldX);
+        DataAboutArena.cfg.set("DeathWorldY", deathWorldY);
+        DataAboutArena.cfg.set("DeathWorldZ", deathWorldZ);
+        DataAboutArena.cfg.set("DeathWorldName", deathWorldName);
         try {
             DataAboutArena.cfg.save(DataAboutArena.file);
         } catch (IOException e) {
@@ -99,21 +85,18 @@ public class DataAboutArena {
 
     //Some Getters and Setters need @param player
 
-    public static int getHighWhereMinecartsSpawn() {
-        return cfg.getInt("HighWhereMinecartsSpawn");
+    public static Location getArenaMiddle() {
+        World world = Bukkit.getWorld(getArenaWorldName());
+        ArenaMiddle = new Location(world, getArenaBoundX(), getArenaBoundY(), getArenaBoundZ());
+        return ArenaMiddle;
     }
 
-    public static void setHighWhereMinecartsSpawn(Player player) {
-        DataAboutArena.highWhereMinecartsSpawn = (int) player.getLocation().getY();
+    public static void setArenaMiddle(Location arenaMiddle) {
+        ArenaMiddle = arenaMiddle;
     }
 
-    public static int getHighWhereMinecartsDespawn() {
-        return cfg.getInt("HighWhereMinecartsDespawn");
-    }
 
-    public static void setHighWhereMinecartsDespawn(Player player) {
-        DataAboutArena.highWhereMinecartsDespawn = (int) player.getLocation().getY();
-    }
+
 
     public static int getArenaBoundZ() {
         return cfg.getInt("ArenaBoundZ");
@@ -124,7 +107,7 @@ public class DataAboutArena {
     }
 
     public static int getArenaBoundX() {
-        return cfg.getInt("ArenaBoundY");
+        return cfg.getInt("ArenaBoundX");
     }
 
     public static void setArenaBoundX(Player player) {
@@ -140,7 +123,7 @@ public class DataAboutArena {
     }
 
     public static String getDeathWorldName() {
-        return deathWorldName;
+        return cfg.getString("DeathWorldName");
     }
 
     public static void setDeathWorldName(String deathWorldName) {
@@ -148,7 +131,7 @@ public class DataAboutArena {
     }
 
     public static int getDeathWorldX() {
-        return cfg.getInt("deathWorldX");
+        return cfg.getInt("DeathWorldX");
     }
 
     public static void setDeathWorldX(Player player) {
@@ -156,7 +139,7 @@ public class DataAboutArena {
     }
 
     public static int getDeathWorldY() {
-        return cfg.getInt("deathWorldY");
+        return cfg.getInt("DeathWorldY");
     }
 
     public static void setDeathWorldY(Player player) {
@@ -164,7 +147,7 @@ public class DataAboutArena {
     }
 
     public static int getDeathWorldZ() {
-        return cfg.getInt("deathWorldZ");
+        return cfg.getInt("DeathWorldZ");
     }
 
     public static void setDeathWorldZ(Player player) {
@@ -201,6 +184,14 @@ public class DataAboutArena {
 
     public static void setBackInArenaWorldName(String backInArenaWorldName) {
         DataAboutArena.backInArenaWorldName = backInArenaWorldName;
+    }
+
+    public static int getArenaBoundY() {
+        return cfg.getInt("ArenaBoundY");
+    }
+
+    public static void setArenaBoundY(Player player) {
+        ArenaBoundY = (int) player.getLocation().getY();
     }
 }
 

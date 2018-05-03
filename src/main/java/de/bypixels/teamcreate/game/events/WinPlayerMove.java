@@ -15,17 +15,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-public class EVENTwinPlayerMove implements Listener {
+public class WinPlayerMove implements Listener {
 
 
+    //
     @EventHandler(ignoreCancelled = true)
     public void onPlayerMoveToWin(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         if (WinDetection.checkForWin(player) == true){
             for (Player all: Bukkit.getOnlinePlayers()){
                 all.sendMessage(MainSystem.PREFIX+"§7Der Spieler: §6" + player.getName() + " §7hat das Ziel erreicht!");
-
-
             }
 
             //Teleports the Player back in the old Arena

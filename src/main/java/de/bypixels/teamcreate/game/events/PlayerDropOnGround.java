@@ -3,6 +3,7 @@ package de.bypixels.teamcreate.game.events;
 import de.bypixels.teamcreate.game.main.MainSystem;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
 import org.bukkit.*;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,7 +17,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
  * +
  */
 
-public class EVENTplayerDropOnGround implements Listener {
+public class PlayerDropOnGround implements Listener {
 
 
 
@@ -25,13 +26,13 @@ public class EVENTplayerDropOnGround implements Listener {
     public void onDroponGround(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         if (MainSystem.isPlaying.contains(player)) {
-            if (player.getLocation().getY() <= DataAboutArena.getHighWhereMinecartsDespawn()) {
+            if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR) {
                 MainSystem.isPlaying.remove(player);
                 World world = Bukkit.getWorld(DataAboutArena.getDeathWorldName());
                 Location location = new Location(world , DataAboutArena.getDeathWorldX(), DataAboutArena.getDeathWorldY(), DataAboutArena.getDeathWorldZ());
                 player.teleport(location);
                 for (Player all : Bukkit.getOnlinePlayers()) {
-                    all.sendMessage("§cDer Spieler: §6" + player.getName() + "§c ist ausgeschieden!");
+                    all.sendMessage(MainSystem.PREFIX + "§cDer Spieler: §6" + player.getName() + "§c ist ausgeschieden!");
                 }
                 player.sendMessage(MainSystem.PREFIX+"§7Du bist ausgeschienden!");
 

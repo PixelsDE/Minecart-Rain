@@ -19,7 +19,6 @@ public class CMDsetArena implements CommandExecutor {
 
 
     //Setzt den Mittelpunkt der Arena
-
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         if (command.getName().equalsIgnoreCase("setarena")){
@@ -29,11 +28,13 @@ public class CMDsetArena implements CommandExecutor {
 
                    DataAboutArena.setArenaBoundX(player);
                    DataAboutArena.setArenaBoundZ(player);
+                   DataAboutArena.setArenaBoundY(player);
                    DataAboutArena.setArenaWorld(player.getWorld().getName());
 
                     DataAboutArena.setArenaInConfig();
 
-                    player.sendMessage(MainSystem.PREFIX+"§7DU hast die Arenamitte gesetzt!");
+
+                    player.sendMessage(MainSystem.PREFIX+"§7Du hast die Arenamitte gesetzt!");
 
                 }
             }

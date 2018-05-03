@@ -48,9 +48,9 @@ public class CMDsetDatasOfGame implements CommandExecutor {
                             }
                             player.sendMessage(MainSystem.PREFIX + "Du hast die höhe zum Gewinnen auf: " + args[1] + " gesetzt!");
 
-                        } else if (args[0].equalsIgnoreCase("timeToSpawnMinecart")) {
-                            DataAboutGame.setTimeToSpawnMinecart(Integer.valueOf(args[1]));
-                            DataAboutGame.cfg.set("timeToSpawnMinecart", args[1]);
+                        } else if (args[0].equalsIgnoreCase("timeBetweenMinecartSpawn")) {
+                            DataAboutGame.setTimeBetweenMinecartSpawn(Integer.valueOf(args[1]));
+                            DataAboutGame.cfg.set("timeBetweenMinecartSpawn", args[1]);
                             try {
                                 DataAboutGame.cfg.save(DataAboutGame.file);
                             } catch (IOException e) {

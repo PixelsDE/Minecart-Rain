@@ -15,11 +15,15 @@ commands:
     description: Setzt einige Daten zur Arena
   deathlocation:
     description: Setzt die Death-Player Location
-  minecartdespawnhigh:
+  highminecartdespawn:
     description: Setzt die Höhe wo Minecarts spawnen
   backinarena:
     description: Setzt die Location wo gewonnene Spieler hingeportet werden
   highminecartspawn:
     description: Setzt die Höhe wo die Minecarts spawnen
-  reloadconfig:
+  configreload:
     description: Reloadet die Config
+  stoprain:
+    description: Stoppt das Spiel
+  removeminecarts:
+    description: Entfernt alle Minecarts
