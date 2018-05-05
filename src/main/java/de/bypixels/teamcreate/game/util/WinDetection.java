@@ -1,8 +1,15 @@
 package de.bypixels.teamcreate.game.util;
-/* Made by PixelsDE
- Minecraft-Developer
- Copyright PixelsDE
- youtube.com/bypixels */
+/******************************************************************
+ *   Copyright Notice                                             *
+ *   Copyright (c) PixelsDE | Daniel 2018                         *
+ *   Created: 05.05.2018 / 11:59                                  *
+ *   All contents of this source text are protected by copyright. *
+ *   The copyright law, unless expressly indicated otherwise, is  *
+ *   at PixelsDE | Daniel. All rights reserved                    *
+ *   Any type of duplication, distribution, rental, sale, award,  *
+ *   Public accessibility or other use                            *
+ *   Requires the express written consent of PixelsDE | Daniel.   *
+ *****************************************************************/
 
 import de.bypixels.teamcreate.game.main.MainSystem;
 import org.bukkit.entity.Player;

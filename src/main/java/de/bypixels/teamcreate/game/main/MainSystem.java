@@ -16,6 +16,19 @@ import java.util.List;
 
 public final class MainSystem extends JavaPlugin {
 
+
+    /******************************************************************
+     *   Copyright Notice                                             *
+     *   Copyright (c) PixelsDE | Daniel 2018                         *
+     *   Created: 05.05.2018 / 11:59                                  *
+     *   All contents of this source text are protected by copyright. *
+     *   The copyright law, unless expressly indicated otherwise, is  *
+     *   at PixelsDE | Daniel. All rights reserved                    *
+     *   Any type of duplication, distribution, rental, sale, award,  *
+     *   Public accessibility or other use                            *
+     *   Requires the express written consent of PixelsDE | Daniel.   *
+     *****************************************************************/
+
     //TODO: SPIELER WERDEN IN ARENA TELEPORTIERT
     //TODO: MINECARTS SPAWNEN IN DER ARENA GRENZE
     //TODO: DEATH TELEPORT LOCATION
