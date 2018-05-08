@@ -4,17 +4,26 @@ import de.bypixels.teamcreate.game.commands.*;
 import de.bypixels.teamcreate.game.events.*;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
 import de.bypixels.teamcreate.game.util.DataAboutGame;
+import de.bypixels.teamcreate.game.util.api.WinDetection;
+import de.bypixels.teamcreate.game.util.api.checks.*;
+import de.bypixels.teamcreate.game.util.api.specialEvents.PlayerDropOnGround;
+import de.bypixels.teamcreate.game.util.api.specialEvents.PlayerWinEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class MainSystem extends JavaPlugin {
+public final class MainSystem extends JavaPlugin implements Listener {
 
 
     /******************************************************************
@@ -35,6 +44,8 @@ public final class MainSystem extends JavaPlugin {
 
     public static MainSystem plugin;
 
+    private static boolean start;
+
     public static String PREFIX = "§7[§6MinecartRain§7]§f ";
 
     //List of Player they are Playing
@@ -42,7 +53,7 @@ public final class MainSystem extends JavaPlugin {
 
 
     //@param Minecart ArrayList of ALL spawned Minecarts
-    public static List<Minecart> spawnedMinecart = new ArrayList<>();
+    public static List<Minecart> spawnedMinecarts = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -69,9 +80,18 @@ public final class MainSystem extends JavaPlugin {
         return PREFIX;
     }
 
+    public static boolean isStart() {
+        return start;
+    }
+
+    public static void setStart(boolean start) {
+        MainSystem.start = start;
+    }
+
     public static void setPREFIX(String PREFIX) {
         MainSystem.PREFIX = PREFIX;
     }
+
 
     @Override
     public void onDisable() {
@@ -85,14 +105,17 @@ public final class MainSystem extends JavaPlugin {
 
 
     //Methode, welche besondere Daten einfügt
+    @SuppressWarnings("deprecation")
     public void init(PluginManager pluginManager) {
         DataAboutGame.setDataInConfig();
 
-        pluginManager.registerEvents(new PlayerDropOnGround(), this);
+        setStart(false);
+        pluginManager.registerEvents(new DropOnGround(), this);
         pluginManager.registerEvents(new WinPlayerMove(), this);
         pluginManager.registerEvents(new MinecartFallSpeed(), this);
         pluginManager.registerEvents(new MinecartDespawnOnGround(), this);
         pluginManager.registerEvents(new MinecartDamage(), this);
+        pluginManager.registerEvents(this, this);
 
         MainSystem.getPlugin().getCommand("start").setExecutor(new CMDstartGame());
         MainSystem.getPlugin().getCommand("dataofgame").setExecutor(new CMDsetDatasOfGame());
@@ -104,7 +127,13 @@ public final class MainSystem extends JavaPlugin {
         MainSystem.getPlugin().getCommand("configreload").setExecutor(new CMDreloadConfig());
         MainSystem.getPlugin().getCommand("stoprain").setExecutor(new CMDstopGame());
         MainSystem.getPlugin().getCommand("removeminecarts").setExecutor(new CMDremove());
+        MainSystem.getPlugin().getCommand("teleportinminecart").setExecutor(new CMDteleportInMinecart());
 
+        try {
+            checkForExceptions();
+        } catch (CheckException check) {
+            check.getExceptionString();
+        }
         Bukkit.getConsoleSender().sendMessage(MainSystem.PREFIX + "§aTh Plugin is: ON!");
     }
 
@@ -135,5 +164,36 @@ public final class MainSystem extends JavaPlugin {
         }
 
     }
-}
 
+
+    @EventHandler(ignoreCancelled = true)
+    public void onDroponGround(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+        if (MainSystem.isPlaying.contains(player)) {
+            if (MainSystem.isStart() == true) {
+                if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR) {
+                    Bukkit.getPluginManager().callEvent(new PlayerDropOnGround(player));
+
+                }
+            }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onPlayerWin(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+        if (WinDetection.checkForWin(player) == true) {
+            if (MainSystem.isStart() == true) {
+                Bukkit.getPluginManager().callEvent(new PlayerWinEvent(player));
+            }
+        }
+    }
+
+
+    public static void checkForExceptions() throws CheckException {
+        new ExceptionWinHighLowerMinecartSpawnHigh().lower();
+        new ExceptionMinecartDepawnHighLowerMinecartSpawnHigh().lower();
+        new ExceptionWinHighUnEqualsPlayerSpawnHigh().unequals();
+        new ExceptionWinHighHigherMinecartDespawnHigh().higher();
+    }
+}

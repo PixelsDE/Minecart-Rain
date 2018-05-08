@@ -27,3 +27,5 @@ commands:
     description: Stoppt das Spiel
   removeminecarts:
     description: Entfernt alle Minecarts
+  teleportinminecart:
+    description: Setzt die Spieler in die Minecrarts und aktiviert denn DeathDrop

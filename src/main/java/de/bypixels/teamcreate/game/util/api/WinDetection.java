@@ -1,4 +1,4 @@
-package de.bypixels.teamcreate.game.util;
+package de.bypixels.teamcreate.game.util.api;
 /******************************************************************
  *   Copyright Notice                                             *
  *   Copyright (c) PixelsDE | Daniel 2018                         *
@@ -12,14 +12,16 @@ package de.bypixels.teamcreate.game.util;
  *****************************************************************/
 
 import de.bypixels.teamcreate.game.main.MainSystem;
+import de.bypixels.teamcreate.game.util.DataAboutGame;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WinDetection {
 
 
-    public static ArrayList<Player> winners = new ArrayList<>();
+    public static List<Player> winners = new ArrayList<>();
 
     //Method that gives you the winning Player if the Player is above a special location it returns true
     public static boolean checkForWin(Player player) {

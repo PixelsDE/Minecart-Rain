@@ -28,7 +28,7 @@ public class MinecartFallSpeed implements Listener {
     public void onMinecartMove(VehicleMoveEvent event) {
         if (event.getVehicle() instanceof Minecart) {
             Minecart minecart = (Minecart) event.getVehicle();
-            if (MainSystem.spawnedMinecart.contains(minecart)) {
+            if (MainSystem.spawnedMinecarts.contains(minecart)) {
                 minecart.setGravity(true);
                 minecart.setVelocity(minecart.getVelocity().multiply(DataAboutGame.getFallSpeedOfMinecart()));
 

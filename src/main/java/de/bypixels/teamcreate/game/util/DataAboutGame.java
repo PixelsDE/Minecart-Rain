@@ -38,6 +38,7 @@ public class DataAboutGame {
     public static int timeBeforePutPlayerInMinecart;
     private static int highWhereMinecartsSpawn;
     private static int highWhereMinecartsDespawn;
+    private static int highPlayersTeleportetAfterStart;
 
     //Setzt die Daten in die Datei
     public static void setDataInConfig() {
@@ -48,6 +49,7 @@ public class DataAboutGame {
         cfg.addDefault("amountOfSpawnedMinecarts", 1);
         cfg.addDefault("timeBeforeStartRain", 1);
         cfg.addDefault("timeBeforePutPlayerInMinecart", 3);
+        cfg.addDefault("highPlayersTeleportetAfterStart", 10);
         cfg.options().copyDefaults(true);
         try {
             cfg.save(DataAboutGame.file);
@@ -80,6 +82,15 @@ public class DataAboutGame {
     }
 
     //Some Getters and Setters
+    public static int getHighPlayersTeleportetAfterStart() {
+        return (int) cfg.getDouble("highPlayersTeleportetAfterStart");
+    }
+
+
+    public static void setHighPlayersTeleportetAfterStart(Player player) {
+        DataAboutGame.highPlayersTeleportetAfterStart = (int) player.getLocation().getY();
+    }
+
     public static int getAmountOfSpawnedMinecarts() {
         return cfg.getInt("amountOfSpawnedMinecarts");
     }

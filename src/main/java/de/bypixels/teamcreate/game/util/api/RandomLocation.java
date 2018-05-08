@@ -1,4 +1,4 @@
-package de.bypixels.teamcreate.game.util;
+package de.bypixels.teamcreate.game.util.api;
 /******************************************************************
  *   Copyright Notice                                             *
  *   Copyright (c) PixelsDE | Daniel 2018                         *
@@ -11,6 +11,8 @@ package de.bypixels.teamcreate.game.util;
  *   Requires the express written consent of PixelsDE | Daniel.   *
  *****************************************************************/
 
+import de.bypixels.teamcreate.game.util.DataAboutArena;
+import de.bypixels.teamcreate.game.util.DataAboutGame;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
