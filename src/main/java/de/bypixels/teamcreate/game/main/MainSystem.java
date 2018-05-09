@@ -7,7 +7,6 @@ import de.bypixels.teamcreate.game.util.DataAboutArena;
 import de.bypixels.teamcreate.game.util.DataAboutGame;
 import de.bypixels.teamcreate.game.util.api.WinDetection;
 
-import de.bypixels.teamcreate.game.util.api.specialEvents.PlayerDropOnGround;
 import de.bypixels.teamcreate.game.util.api.specialEvents.PlayerWinEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -40,8 +39,6 @@ public final class MainSystem extends JavaPlugin implements Listener {
      *****************************************************************/
 
     //TODO: SPIELER WERDEN IN ARENA TELEPORTIERT
-    //TODO: MINECARTS SPAWNEN IN DER ARENA GRENZE
-    //TODO: DEATH TELEPORT LOCATION
 
     public static MainSystem plugin;
 
@@ -77,7 +74,6 @@ public final class MainSystem extends JavaPlugin implements Listener {
 
 
     //Some gettters and Setters
-
     public static MainSystem getPlugin() {
         return plugin;
     }
@@ -117,7 +113,7 @@ public final class MainSystem extends JavaPlugin implements Listener {
         BanishedPlayers.setInConfig();
 
         setStart(false);
-        pluginManager.registerEvents(new DropOnGround(), this);
+        pluginManager.registerEvents(new PlayerHitGround(), this);
         pluginManager.registerEvents(new WinPlayerMove(), this);
         pluginManager.registerEvents(new MinecartFallSpeed(), this);
         pluginManager.registerEvents(new MinecartDespawnOnGround(), this);
@@ -135,7 +131,6 @@ public final class MainSystem extends JavaPlugin implements Listener {
         MainSystem.getPlugin().getCommand("configreload").setExecutor(new CMDreloadConfig());
         MainSystem.getPlugin().getCommand("stoprain").setExecutor(new CMDstopGame());
         MainSystem.getPlugin().getCommand("removeminecarts").setExecutor(new CMDremove());
-        MainSystem.getPlugin().getCommand("teleportinminecart").setExecutor(new CMDteleportInMinecart());
 
         DataAboutGame.setPREFIX(DataAboutGame.getPREFIX());
 
@@ -158,7 +153,6 @@ public final class MainSystem extends JavaPlugin implements Listener {
             all.sendMessage(MainSystem.PREFIX + message);
     }
 
-
     //Removed alle Enititys wenns Minecarts sind!
     @Override
     public void onLoad() {
@@ -167,7 +161,6 @@ public final class MainSystem extends JavaPlugin implements Listener {
                 entity.remove();
             }
         }
-
     }
 
 
@@ -177,7 +170,7 @@ public final class MainSystem extends JavaPlugin implements Listener {
         if (MainSystem.isPlaying.contains(player)) {
             if (MainSystem.isStart() == true) {
                 if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR) {
-                    Bukkit.getPluginManager().callEvent(new PlayerDropOnGround(player));
+                    Bukkit.getPluginManager().callEvent(new de.bypixels.teamcreate.game.util.api.specialEvents.PlayerDropOnGround(player));
 
                 }
             }

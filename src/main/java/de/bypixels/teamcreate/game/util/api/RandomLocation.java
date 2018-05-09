@@ -35,7 +35,5 @@ public class RandomLocation {
 
     public static double getRandomNumber(int bound) {
         return Math.random() * 2 * bound - bound;
-
     }
-
 }

@@ -34,9 +34,9 @@ public class CMDsetMinecartSpawnHigh implements CommandExecutor {
                 if (player.hasPermission("highminecartspawn")) {
 
                     DataAboutGame.setHighWhereMinecartsSpawn(player);
-                    DataAboutGame.cfg.set("highWhereMinecartsSpawn", (int) player.getLocation().getY());
+                    DataAboutGame.getCfg().set("highWhereMinecartsSpawn", (int) player.getLocation().getY());
                     try {
-                        DataAboutGame.cfg.save(DataAboutGame.file);
+                        DataAboutGame.getCfg().save(DataAboutGame.getFile());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

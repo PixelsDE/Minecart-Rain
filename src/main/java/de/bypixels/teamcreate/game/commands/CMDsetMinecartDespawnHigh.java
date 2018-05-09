@@ -34,9 +34,9 @@ public class CMDsetMinecartDespawnHigh implements CommandExecutor {
                 if (player.hasPermission("highminecartdespawn")) {
 
                     DataAboutGame.setHighWhereMinecartsDespawn(player);
-                    DataAboutGame.cfg.set("highWhereMinecartsDespawn", (int) player.getLocation().getY());
+                    DataAboutGame.getCfg().set("highWhereMinecartsDespawn", (int) player.getLocation().getY());
                     try {
-                        DataAboutGame.cfg.save(DataAboutGame.file);
+                        DataAboutGame.getCfg().save(DataAboutGame.getFile());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

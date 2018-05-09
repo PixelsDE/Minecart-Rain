@@ -30,14 +30,13 @@ public class MinecartRain {
 
     //Spawned die Minecarts
     public static void startMinecartRain() {
-
-       TaskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(MainSystem.getPlugin(), new Runnable() {
+        TaskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(MainSystem.getPlugin(), new Runnable() {
             @Override
             public void run() {
-                    minecart = world.spawn(RandomLocation.getRandomLocation(), Minecart.class);
-                    MainSystem.spawnedMinecarts.add(minecart);
+                minecart = world.spawn(RandomLocation.getRandomLocation(), Minecart.class);
+                MainSystem.spawnedMinecarts.add(minecart);
             }
-        }, DataAboutGame.getTimeBetweenMinecartSpawn(), DataAboutGame.getTimeBetweenMinecartSpawn());
+        },  DataAboutGame.getTimeBetweenMinecartSpawn(), DataAboutGame.getTimeBetweenMinecartSpawn());
 
     }
 

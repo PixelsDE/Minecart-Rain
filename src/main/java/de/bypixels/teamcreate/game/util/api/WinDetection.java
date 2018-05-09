@@ -20,7 +20,6 @@ import java.util.List;
 
 public class WinDetection {
 
-
     public static List<Player> winners = new ArrayList<>();
 
     //Method that gives you the winning Player if the Player is above a special location it returns true

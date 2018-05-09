@@ -32,15 +32,15 @@ public class CMDreloadConfig implements CommandExecutor {
                 Player player = (Player) commandSender;
 
                 if (player.hasPermission("configreload")) {
-                    DataAboutGame.cfg = YamlConfiguration.loadConfiguration(DataAboutGame.file);
-                    DataAboutArena.cfg = YamlConfiguration.loadConfiguration(DataAboutArena.file);
-                    BanishedPlayers.cfg = YamlConfiguration.loadConfiguration(BanishedPlayers.file);
+                    DataAboutGame.cfg = YamlConfiguration.loadConfiguration(DataAboutGame.getFile());
+                    DataAboutArena.cfg = YamlConfiguration.loadConfiguration(DataAboutArena.getFile());
+                    BanishedPlayers.cfg = YamlConfiguration.loadConfiguration(BanishedPlayers.getFile());
                     player.sendMessage(MainSystem.PREFIX + "§7All Files Reloaded");
                 }
             }else{
-                DataAboutGame.cfg = YamlConfiguration.loadConfiguration(DataAboutGame.file);
-                DataAboutArena.cfg = YamlConfiguration.loadConfiguration(DataAboutArena.file);
-                BanishedPlayers.cfg = YamlConfiguration.loadConfiguration(BanishedPlayers.file);
+                DataAboutGame.cfg = YamlConfiguration.loadConfiguration(DataAboutGame.getFile());
+                DataAboutArena.cfg = YamlConfiguration.loadConfiguration(DataAboutArena.getFile());
+                BanishedPlayers.cfg = YamlConfiguration.loadConfiguration(BanishedPlayers.getFile());
                 Bukkit.getConsoleSender().sendMessage(MainSystem.PREFIX +"§7All Files Reloaded");
             }
         }

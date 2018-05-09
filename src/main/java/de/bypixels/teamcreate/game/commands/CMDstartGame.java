@@ -23,6 +23,8 @@ import org.bukkit.entity.Player;
 
 public class CMDstartGame implements CommandExecutor {
 
+    private int TaskID;
+
     //Startet das Spiel
     @Deprecated
     @Override
@@ -31,34 +33,35 @@ public class CMDstartGame implements CommandExecutor {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (player.hasPermission("start")) {
-                    for (Player all : Bukkit.getOnlinePlayers()) {
+                               for (Player all : Bukkit.getOnlinePlayers()) {
+                                   if (!BanishedPlayers.getBanishedPlayers().contains(all.getName()))
                         MainSystem.isPlaying.add(all);
                         all.sendMessage(MainSystem.PREFIX + "§aDas Spiel hat begonnen viel Glück!");
                         all.teleport(DataAboutArena.getArenaMiddle());
-
                         MainSystem.setStart(false);
-
                     }
-
                     MinecartRain.startMinecartRain();
+                    TaskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(MainSystem.getPlugin(), new Runnable() {
+                        int i = DataAboutGame.getTimeBeforeSetInMinecart();
 
-                    Bukkit.getScheduler().scheduleSyncRepeatingTask(MainSystem.getPlugin(), new Runnable() {
-                        int i = 21;
                         @Override
                         public void run() {
-
-                            switch (i){
+                            switch (i) {
+                                case 30:
+                                    for (Player all : Bukkit.getOnlinePlayers())
+                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
+                                    break;
                                 case 20:
                                     for (Player all : Bukkit.getOnlinePlayers())
                                         all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
                                     break;
-                            case 10:
-                                for (Player all : Bukkit.getOnlinePlayers())
-                                    all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
+                                case 10:
+                                    for (Player all : Bukkit.getOnlinePlayers())
+                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
                                     break;
-                             case 5:
-                                 for (Player all : Bukkit.getOnlinePlayers())
-                                     all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
+                                case 5:
+                                    for (Player all : Bukkit.getOnlinePlayers())
+                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
                                     break;
                                 case 4:
                                     for (Player all : Bukkit.getOnlinePlayers())
@@ -83,18 +86,18 @@ public class CMDstartGame implements CommandExecutor {
                                             SetPlayerInMinecart playerInMinecart = new SetPlayerInMinecart(all);
                                         }
                                     }
+                                    Bukkit.getScheduler().cancelTask(TaskID);
                                     break;
-                                    default:
-                                        break;
+                                default:
+                                    break;
                             }
-                            i = i-1;
+                            i = i - 1;
                         }
-                    }, 5*20, 5*20);
+                    }, 20, 20);
                 }
 
             }
         }
-
         return false;
     }
 

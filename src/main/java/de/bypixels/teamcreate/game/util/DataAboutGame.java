@@ -28,28 +28,31 @@ public class DataAboutGame {
     }
 
 
-    public static File file = new File("plugins/Minecart-Rain/config.yml");
+    private static File file = new File("plugins/Minecart-Rain/config.yml");
     public static FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
 
-    public static int boundaryOfMinecartSpawn;
-    public static int highToWinGame;
-    public static int timeBetweenMinecartSpawn;
-    public static float fallSpeedOfMinecart;
+    private static int boundaryOfMinecartSpawn;
+    private static int highToWinGame;
+    private static int timeBetweenMinecartSpawn;
+    private static float fallSpeedOfMinecart;
     private static int highWhereMinecartsSpawn;
     private static int highWhereMinecartsDespawn;
     private static int highPlayersTeleportetAfterStart;
+    private static int timeBeforeSetInMinecart;
     private static String PREFIX;
 
 
     //Setzt die Daten in die Datei
     public static void setDataInConfig() {
+        cfg = YamlConfiguration.loadConfiguration(file);
         cfg.addDefault("boundaryOfMinecartSpawn", 15);
         cfg.addDefault("highToWinGame", 50);
         cfg.addDefault("fallSpeedOfMinecart", 0.5);
         cfg.addDefault("timeBetweenMinecartSpawn", 1);
         cfg.addDefault("highPlayersTeleportetAfterStart", 10);
         cfg.addDefault("Prefix","§7[§6MinecartRain§7]§f ");
+        cfg.addDefault("timeBeforeSetInMinecart", 20);
         cfg.options().copyDefaults(true);
         try {
             cfg.save(DataAboutGame.file);
@@ -90,6 +93,13 @@ public class DataAboutGame {
         MainSystem.setPREFIX(getPREFIX());
     }
 
+    public static int getTimeBeforeSetInMinecart() {
+        return cfg.getInt("timeBeforeSetInMinecart");
+    }
+
+    public static void setTimeBeforeSetInMinecart(int timeBeforeSetInMinecart) {
+        DataAboutGame.timeBeforeSetInMinecart = timeBeforeSetInMinecart;
+    }
 
     public static int getHighPlayersTeleportetAfterStart() {
         return (int) cfg.getDouble("highPlayersTeleportetAfterStart");
@@ -115,6 +125,14 @@ public class DataAboutGame {
         DataAboutGame.highToWinGame = highToWinGame;
     }
 
+    public static FileConfiguration getCfg() {
+        return cfg;
+    }
+
+    public static File getFile() {
+        return file;
+    }
+
     public static float getFallSpeedOfMinecart() {
         return (float) cfg.getDouble("fallSpeedOfMinecart");
     }
@@ -131,6 +149,9 @@ public class DataAboutGame {
         DataAboutGame.timeBetweenMinecartSpawn = timeBetweenMinecartSpawn;
     }
 
+    public static void setCfg(FileConfiguration cfg) {
+        DataAboutGame.cfg = cfg;
+    }
 
     public static int getHighWhereMinecartsSpawn() {
         return cfg.getInt("highWhereMinecartsSpawn");

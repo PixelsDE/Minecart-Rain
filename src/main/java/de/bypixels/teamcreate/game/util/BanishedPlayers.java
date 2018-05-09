@@ -26,12 +26,13 @@ public class BanishedPlayers {
     public BanishedPlayers() {
     }
 
-    public static File file = new File("plugins/Minecart-Rain/banished.yml");
+    private static File file = new File("plugins/Minecart-Rain/banished.yml");
     public static FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
     private static List<String> banishedPlayers;
 
 
     public static void setInConfig(){
+        cfg.addDefault("banishedPlayers" ,"TestName");
         cfg.addDefault("banishedPlayers", banishedPlayers);
         cfg.options().copyDefaults(true);
         try {
@@ -45,7 +46,15 @@ public class BanishedPlayers {
         return cfg.getStringList("banishedPlayers");
     }
 
-    public static void setBanishedPlayers(List<String> banishedPlayers) {
-        BanishedPlayers.banishedPlayers = banishedPlayers;
+    public static File getFile() {
+        return file;
+    }
+
+    public static FileConfiguration getCfg() {
+        return cfg;
+    }
+
+    public static void setCfg(FileConfiguration cfg) {
+        BanishedPlayers.cfg = cfg;
     }
 }

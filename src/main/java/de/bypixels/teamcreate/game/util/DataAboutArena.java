@@ -3,6 +3,7 @@ package de.bypixels.teamcreate.game.util;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -25,7 +26,7 @@ import java.io.IOException;
 public class DataAboutArena {
 
 
-    public static File file = new File("plugins/Minecart-Rain/location.yml");
+    private static File file = new File("plugins/Minecart-Rain/location.yml");
     public static YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
 
@@ -44,6 +45,7 @@ public class DataAboutArena {
     private static Location ArenaMiddle;
 
     public static void setBackInArenaLocInConfig() {
+        cfg = YamlConfiguration.loadConfiguration(file);
         cfg.set("backInArenaX", backInArenaX);
         cfg.set("backInArenaY", backInArenaY);
         cfg.set("backInArenaZ", backInArenaZ);
@@ -96,8 +98,9 @@ public class DataAboutArena {
         ArenaMiddle = arenaMiddle;
     }
 
-
-
+    public static FileConfiguration getCfg() {
+        return cfg;
+    }
 
     public static int getArenaBoundZ() {
         return cfg.getInt("ArenaBoundZ");
@@ -147,6 +150,11 @@ public class DataAboutArena {
         DataAboutArena.deathWorldY = (int) player.getLocation().getY();
     }
 
+    public static Location getBackInArenaLocation(){
+        World world = Bukkit.getWorld(getBackInArenaWorldName());
+        Location location = new Location(world, backInArenaX, backInArenaY, backInArenaZ);
+        return location;
+    }
     public static int getDeathWorldZ() {
         return cfg.getInt("DeathWorldZ");
     }
@@ -193,6 +201,14 @@ public class DataAboutArena {
 
     public static void setArenaBoundY(Player player) {
         ArenaBoundY = (int) player.getLocation().getY();
+    }
+
+    public static File getFile() {
+        return file;
+    }
+
+    public static void setFile(File file) {
+        DataAboutArena.file = file;
     }
 }
 

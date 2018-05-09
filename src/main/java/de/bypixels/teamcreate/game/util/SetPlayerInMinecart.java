@@ -26,7 +26,6 @@ public class SetPlayerInMinecart {
 
     private ArrayList<Minecart> MinecartsWithPlayer = new ArrayList<>();
 
-
     public SetPlayerInMinecart(Player player) {
         boolean found = false;
         for (int i = 0; i < 200; i++) {

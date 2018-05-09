@@ -42,9 +42,22 @@ public class CMDstopGame implements CommandExecutor {
                     for (Player all : Bukkit.getOnlinePlayers()) {
                         MainSystem.isPlaying.remove(all);
                         all.sendMessage(MainSystem.getPREFIX() + "§7Danke fuers spielen!");
+                        all.teleport(DataAboutArena.getBackInArenaLocation());
                     }
                 }
 
+            } else {
+                Bukkit.getScheduler().cancelTask(MinecartRain.TaskID);
+                for (Entity entity : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
+                    if (entity instanceof Minecart) {
+                        entity.remove();
+                    }
+                }
+                for (Player all : Bukkit.getOnlinePlayers()) {
+                    if (MainSystem.isPlaying.contains(all))
+                        MainSystem.isPlaying.remove(all);
+                    all.sendMessage(MainSystem.getPREFIX() + "§7Danke fuers spielen!");
+                }
             }
         }
         return false;
