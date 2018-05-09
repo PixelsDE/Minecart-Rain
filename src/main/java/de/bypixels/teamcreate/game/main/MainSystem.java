@@ -2,6 +2,7 @@ package de.bypixels.teamcreate.game.main;
 
 import de.bypixels.teamcreate.game.commands.*;
 import de.bypixels.teamcreate.game.events.*;
+import de.bypixels.teamcreate.game.util.BanishedPlayers;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
 import de.bypixels.teamcreate.game.util.DataAboutGame;
 import de.bypixels.teamcreate.game.util.api.WinDetection;
@@ -54,7 +55,6 @@ public final class MainSystem extends JavaPlugin implements Listener {
 
     //@param Minecart ArrayList of ALL spawned Minecarts
     public static List<Minecart> spawnedMinecarts = new ArrayList<>();
-
 
     @Override
     public void onEnable() {
@@ -114,6 +114,7 @@ public final class MainSystem extends JavaPlugin implements Listener {
     @SuppressWarnings("deprecation")
     public void init(PluginManager pluginManager) {
         DataAboutGame.setDataInConfig();
+        BanishedPlayers.setInConfig();
 
         setStart(false);
         pluginManager.registerEvents(new DropOnGround(), this);

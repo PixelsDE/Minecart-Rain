@@ -43,9 +43,6 @@ public class DataAboutArena {
     private static String backInArenaWorldName;
     private static Location ArenaMiddle;
 
-
-
-
     public static void setBackInArenaLocInConfig() {
         cfg.set("backInArenaX", backInArenaX);
         cfg.set("backInArenaY", backInArenaY);

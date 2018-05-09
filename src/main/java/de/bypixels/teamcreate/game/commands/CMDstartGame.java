@@ -14,10 +14,7 @@ package de.bypixels.teamcreate.game.commands;
 
 
 import de.bypixels.teamcreate.game.main.MainSystem;
-import de.bypixels.teamcreate.game.util.DataAboutArena;
-import de.bypixels.teamcreate.game.util.DataAboutGame;
-import de.bypixels.teamcreate.game.util.MinecartRain;
-import de.bypixels.teamcreate.game.util.SetPlayerInMinecart;
+import de.bypixels.teamcreate.game.util.*;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -39,10 +36,60 @@ public class CMDstartGame implements CommandExecutor {
                         all.sendMessage(MainSystem.PREFIX + "§aDas Spiel hat begonnen viel Glück!");
                         all.teleport(DataAboutArena.getArenaMiddle());
 
+                        MainSystem.setStart(false);
 
                     }
+
                     MinecartRain.startMinecartRain();
 
+                    Bukkit.getScheduler().scheduleSyncRepeatingTask(MainSystem.getPlugin(), new Runnable() {
+                        int i = 21;
+                        @Override
+                        public void run() {
+
+                            switch (i){
+                                case 20:
+                                    for (Player all : Bukkit.getOnlinePlayers())
+                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
+                                    break;
+                            case 10:
+                                for (Player all : Bukkit.getOnlinePlayers())
+                                    all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
+                                    break;
+                             case 5:
+                                 for (Player all : Bukkit.getOnlinePlayers())
+                                     all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
+                                    break;
+                                case 4:
+                                    for (Player all : Bukkit.getOnlinePlayers())
+                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
+                                    break;
+                                case 3:
+                                    for (Player all : Bukkit.getOnlinePlayers())
+                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
+                                    break;
+                                case 2:
+                                    for (Player all : Bukkit.getOnlinePlayers())
+                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
+                                    break;
+                                case 1:
+                                    for (Player all : Bukkit.getOnlinePlayers())
+                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunde!");
+                                    break;
+                                case 0:
+                                    MainSystem.setStart(true);
+                                    for (Player all : Bukkit.getOnlinePlayers()) {
+                                        if (!BanishedPlayers.getBanishedPlayers().contains(all.getName())) {
+                                            SetPlayerInMinecart playerInMinecart = new SetPlayerInMinecart(all);
+                                        }
+                                    }
+                                    break;
+                                    default:
+                                        break;
+                            }
+                            i = i-1;
+                        }
+                    }, 5*20, 5*20);
                 }
 
             }

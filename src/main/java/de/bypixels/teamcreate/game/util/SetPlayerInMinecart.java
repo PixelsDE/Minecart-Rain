@@ -35,11 +35,14 @@ public class SetPlayerInMinecart {
                 if (e instanceof Minecart) {
                     Minecart minecart = (Minecart) e;
                     if (!MinecartsWithPlayer.contains(minecart)) {
-                        minecart.addPassenger(player);
-                        MinecartsWithPlayer.add(minecart);
-                        found = true;
-                        break;
-
+                        if (minecart.getPassengers().isEmpty() == true) {
+                            if (!BanishedPlayers.getBanishedPlayers().contains(player.getName())) {
+                                minecart.addPassenger(player);
+                                MinecartsWithPlayer.add(minecart);
+                                found = true;
+                                break;
+                            }
+                        }
                     }
 
 

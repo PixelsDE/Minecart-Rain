@@ -28,10 +28,7 @@ public class CMDteleportInMinecart implements CommandExecutor {
             if (sender instanceof Player){
                 Player player = (Player)sender;
                 if (player.hasPermission("teleportinminecart")){
-                        MainSystem.setStart(true);
-                        for (Player all : Bukkit.getOnlinePlayers()) {
-                            SetPlayerInMinecart playerInMinecart = new SetPlayerInMinecart(all);
-                        }
+
                 }
             }
         }

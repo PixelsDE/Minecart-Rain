@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /******************************************************************
  *   Copyright Notice                                             *
@@ -26,8 +27,9 @@ public class DataAboutGame {
     public DataAboutGame() {
     }
 
+
     public static File file = new File("plugins/Minecart-Rain/config.yml");
-    public static YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+    public static FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
 
     public static int boundaryOfMinecartSpawn;
@@ -38,6 +40,7 @@ public class DataAboutGame {
     private static int highWhereMinecartsDespawn;
     private static int highPlayersTeleportetAfterStart;
     private static String PREFIX;
+
 
     //Setzt die Daten in die Datei
     public static void setDataInConfig() {
@@ -54,7 +57,6 @@ public class DataAboutGame {
             e.printStackTrace();
         }
     }
-
 
     //Setzt die oben genannten Daten in die Datei
     public static void setMinecartSpawnHighInConfig() {
@@ -79,8 +81,6 @@ public class DataAboutGame {
     }
 
     //Some Getters and Setters
-
-
     public static String getPREFIX() {
         return cfg.getString("Prefix");
     }
@@ -89,6 +89,7 @@ public class DataAboutGame {
         DataAboutGame.PREFIX = PREFIX;
         MainSystem.setPREFIX(getPREFIX());
     }
+
 
     public static int getHighPlayersTeleportetAfterStart() {
         return (int) cfg.getDouble("highPlayersTeleportetAfterStart");

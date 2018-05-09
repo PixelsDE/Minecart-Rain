@@ -35,7 +35,6 @@ public class CMDbackInArena implements CommandExecutor {
                     DataAboutArena.setBackInArenaWorldName(player.getWorld().getName());
                     DataAboutArena.setBackInArenaLocInConfig();
                     player.sendMessage(MainSystem.PREFIX + "§7Du hast die Location wo die Spieler nach dem Spiel hinkommen gesetzt!");
-
                 }
             }
         }
