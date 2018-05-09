@@ -1,5 +1,6 @@
 package de.bypixels.teamcreate.game.commands;
 
+import de.bypixels.teamcreate.game.main.MainSystem;
 import de.bypixels.teamcreate.game.util.SetPlayerInMinecart;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -28,7 +29,9 @@ public class CMDteleportInMinecart implements CommandExecutor {
                 Player player = (Player)sender;
                 if (player.hasPermission("teleportinminecart")){
                     for (Player allPlayers: Bukkit.getOnlinePlayers()) {
+                        MainSystem.setStart(true);
                         SetPlayerInMinecart playerInMinecart = new SetPlayerInMinecart(allPlayers);
+
                     }
                 }
             }

@@ -34,7 +34,7 @@ public class CMDsetDatasOfGame implements CommandExecutor {
                     if (args.length == 2) {
                         if (args[0].equalsIgnoreCase("boundaryOfMinecartSpawn")) {
                             DataAboutGame.setBoundaryOfMinecartSpawn(Integer.valueOf(args[1]));
-                            DataAboutGame.cfg.set("boundaryOfMinecartSpawn", args[1]);
+                            DataAboutGame.cfg.set("boundaryOfMinecartSpawn", Integer.valueOf(args[1]));
                             try {
                                 DataAboutGame.cfg.save(DataAboutGame.file);
                             } catch (IOException e) {
@@ -44,7 +44,7 @@ public class CMDsetDatasOfGame implements CommandExecutor {
 
                         } else if (args[0].equalsIgnoreCase("highToWinGame")) {
                             DataAboutGame.setHighToWinGame(Integer.valueOf(args[1]));
-                            DataAboutGame.cfg.set("highToWinGame", args[1]);
+                            DataAboutGame.cfg.set("highToWinGame", Integer.valueOf(args[1]));
                             try {
                                 DataAboutGame.cfg.save(DataAboutGame.file);
                             } catch (IOException e) {
@@ -54,7 +54,7 @@ public class CMDsetDatasOfGame implements CommandExecutor {
 
                         } else if (args[0].equalsIgnoreCase("timeBetweenMinecartSpawn")) {
                             DataAboutGame.setTimeBetweenMinecartSpawn(Integer.valueOf(args[1]));
-                            DataAboutGame.cfg.set("timeBetweenMinecartSpawn", args[1]);
+                            DataAboutGame.cfg.set("timeBetweenMinecartSpawn", Integer.valueOf(args[1]));
                             try {
                                 DataAboutGame.cfg.save(DataAboutGame.file);
                             } catch (IOException e) {
@@ -64,7 +64,7 @@ public class CMDsetDatasOfGame implements CommandExecutor {
 
                         } else if (args[0].equalsIgnoreCase("fallSpeedOfMinecart")) {
                             DataAboutGame.setFallSpeedOfMinecart(Integer.valueOf(args[1]));
-                            DataAboutGame.cfg.set("fallSpeedOfMinecart", args[1]);
+                            DataAboutGame.cfg.set("fallSpeedOfMinecart", Integer.valueOf(args[1]));
                             try {
                                 DataAboutGame.cfg.save(DataAboutGame.file);
                             } catch (IOException e) {
@@ -72,15 +72,8 @@ public class CMDsetDatasOfGame implements CommandExecutor {
                             }
                             player.sendMessage(MainSystem.PREFIX + "Du hast die Fallgeschwindigkeit der Minecarts auf: " + args[1] + " gesetzt!");
 
-                        }else if (args[0].equalsIgnoreCase("amountOfSpawnedMinecarts")) {
-                            DataAboutGame.setAmountOfSpawnedMinecarts(Integer.valueOf(args[1]));
-                            DataAboutGame.cfg.set("amountOfSpawnedMinecarts", args[1]);
-                            try {
-                                DataAboutGame.cfg.save(DataAboutGame.file);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            player.sendMessage(MainSystem.PREFIX + "Du hast die Anazahl der spawnenden Minecarts auf: " + args[1] + " gesetzt!");
+                        }else{
+                            player.sendMessage(MainSystem.PREFIX+"Bitte benutze /dataofgame [boundaryOfMinecartSpawn, highToWinGame, timeToSpawnMinecart, fallSpeedOfMinecart] + WERT (Bei fallSpeedOfMinecart handelt es sich um einen float!) ");
 
                         }
 

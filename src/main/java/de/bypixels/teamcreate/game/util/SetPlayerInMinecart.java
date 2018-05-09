@@ -4,8 +4,11 @@ import de.bypixels.teamcreate.game.main.MainSystem;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
+
+import java.util.List;
 
 /******************************************************************
  *   Copyright Notice                                             * 
@@ -21,30 +24,21 @@ import org.bukkit.entity.Player;
 public class SetPlayerInMinecart {
 
 
-    private Player player;
-
-
     @Deprecated
     public SetPlayerInMinecart(Player player) {
-        this.player = player;
-        for (Entity nearbyEntities : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
-            if (nearbyEntities instanceof Minecart) {
-                Minecart minecart = (Minecart) nearbyEntities.getVehicle();
-                Location location = new Location(player.getWorld()
-                        , player.getLocation().getX()
-                        ,player.getLocation().getY() + DataAboutGame.getHighPlayersTeleportetAfterStart()
-                        , player.getLocation().getZ());
-                player.teleport(location);
-                if (player.getLocation().distance(minecart.getLocation()) <= 5) {
-                    if (MainSystem.spawnedMinecarts.contains(minecart)) {
-                        minecart.setPassenger(player);
-
-                        MainSystem.setStart(true);
-                    }
+        boolean found = false;
+        for (int i = 0; i < 200; i++) {
+            List<Entity> entities = player.getNearbyEntities(i,64,i);
+            for (Entity e : entities) {
+                if (e.getType().equals(EntityType.MINECART)) {
+                    e.getVehicle().setPassenger(player);
+//do compas thing for that player, also post that code, i would be interested in it..
+                    found = true;
+                    break;
                 }
             }
+            if (found) break;
         }
-
 
     }
 

@@ -33,9 +33,6 @@ public class DataAboutGame {
     public static int highToWinGame;
     public static int timeBetweenMinecartSpawn;
     public static float fallSpeedOfMinecart;
-    public static int amountOfSpawnedMinecarts;
-    public static int timeBeforeStartRain;
-    public static int timeBeforePutPlayerInMinecart;
     private static int highWhereMinecartsSpawn;
     private static int highWhereMinecartsDespawn;
     private static int highPlayersTeleportetAfterStart;
@@ -46,9 +43,6 @@ public class DataAboutGame {
         cfg.addDefault("highToWinGame", 50);
         cfg.addDefault("fallSpeedOfMinecart", 0.5);
         cfg.addDefault("timeBetweenMinecartSpawn", 1);
-        cfg.addDefault("amountOfSpawnedMinecarts", 1);
-        cfg.addDefault("timeBeforeStartRain", 1);
-        cfg.addDefault("timeBeforePutPlayerInMinecart", 3);
         cfg.addDefault("highPlayersTeleportetAfterStart", 10);
         cfg.options().copyDefaults(true);
         try {
@@ -91,14 +85,6 @@ public class DataAboutGame {
         DataAboutGame.highPlayersTeleportetAfterStart = (int) player.getLocation().getY();
     }
 
-    public static int getAmountOfSpawnedMinecarts() {
-        return cfg.getInt("amountOfSpawnedMinecarts");
-    }
-
-    public static void setAmountOfSpawnedMinecarts(int amountOfSpawnedMinecarts) {
-        DataAboutGame.amountOfSpawnedMinecarts = amountOfSpawnedMinecarts;
-    }
-
     public static int getBoundaryOfMinecartSpawn() {
         return cfg.getInt("boundaryOfMinecartSpawn");
     }
@@ -129,22 +115,6 @@ public class DataAboutGame {
 
     public static void setTimeBetweenMinecartSpawn(int timeBetweenMinecartSpawn) {
         DataAboutGame.timeBetweenMinecartSpawn = timeBetweenMinecartSpawn;
-    }
-
-    public static int getTimeBeforeStartRain() {
-        return timeBeforeStartRain;
-    }
-
-    public static void setTimeBeforeStartRain(int timeBeforeStartRain) {
-        DataAboutGame.timeBeforeStartRain = timeBeforeStartRain;
-    }
-
-    public static int getTimeBeforePutPlayerInMinecart() {
-        return timeBeforePutPlayerInMinecart;
-    }
-
-    public static void setTimeBeforePutPlayerInMinecart(int timeBeforePutPlayerInMinecart) {
-        DataAboutGame.timeBeforePutPlayerInMinecart = timeBeforePutPlayerInMinecart;
     }
 
 

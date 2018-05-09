@@ -24,7 +24,6 @@ import org.bukkit.event.vehicle.VehicleMoveEvent;
 
 public class MinecartDespawnOnGround implements Listener {
 
-
     @EventHandler(ignoreCancelled = true)
     public void onVehicleDroponGround(VehicleMoveEvent event) {
     if (event.getVehicle() instanceof Minecart){

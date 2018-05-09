@@ -61,10 +61,15 @@ public final class MainSystem extends JavaPlugin implements Listener {
         DataAboutGame.setDataInConfig();
         init(Bukkit.getPluginManager());
 
-        for (Entity minecart : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
-            if (minecart instanceof Minecart) {
-                minecart.remove();
+
+        try {
+            for (Entity minecart : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
+                if (minecart instanceof Minecart) {
+                    minecart.remove();
+                }
             }
+        } catch (Exception e) {
+            MainSystem.printInConsole("Du musst erst die Welt festlegen!");
         }
 
     }

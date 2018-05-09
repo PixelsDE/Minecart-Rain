@@ -35,11 +35,9 @@ public class MinecartRain {
             @Override
             public void run() {
                     minecart = world.spawn(RandomLocation.getRandomLocation(), Minecart.class);
-                    minecart.setCustomName("Get UP!");
-                    minecart.setCustomNameVisible(true);
                     MainSystem.spawnedMinecarts.add(minecart);
             }
-        }, DataAboutGame.getTimeBetweenMinecartSpawn()*5*5, DataAboutGame.getTimeBetweenMinecartSpawn()*5);
+        }, DataAboutGame.getTimeBetweenMinecartSpawn(), DataAboutGame.getTimeBetweenMinecartSpawn());
 
     }
 
