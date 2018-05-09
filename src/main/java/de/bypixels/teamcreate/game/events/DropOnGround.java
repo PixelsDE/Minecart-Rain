@@ -26,15 +26,15 @@ public class DropOnGround implements Listener {
     //Teleportiert den Spieler zur DeathLoc wenn er unter Y... kommt
     @EventHandler(ignoreCancelled = true)
     public void onDroponGround(PlayerDropOnGround event) {
-Player player = event.getPlayer();
-                    MainSystem.isPlaying.remove(player);
-                    World world = Bukkit.getWorld(DataAboutArena.getDeathWorldName());
-                    Location location = new Location(world, DataAboutArena.getDeathWorldX(), DataAboutArena.getDeathWorldY(), DataAboutArena.getDeathWorldZ());
-                    player.teleport(location);
-                    for (Player all : Bukkit.getOnlinePlayers()) {
-                        all.sendMessage(MainSystem.PREFIX + "§cDer Spieler: §6" + player.getName() + "§c ist ausgeschieden!");
-                    }
-                    player.sendMessage(MainSystem.PREFIX + "§7Du bist ausgeschienden!");
+        Player player = event.getPlayer();
+        MainSystem.isPlaying.remove(player);
+        World world = Bukkit.getWorld(DataAboutArena.getDeathWorldName());
+        Location location = new Location(world, DataAboutArena.getDeathWorldX(), DataAboutArena.getDeathWorldY(), DataAboutArena.getDeathWorldZ());
+        player.teleport(location);
+        for (Player all : Bukkit.getOnlinePlayers()) {
+            all.sendMessage(MainSystem.PREFIX + "§cDer Spieler: §6" + player.getName() + "§c ist ausgeschieden!");
+        }
+        player.sendMessage(MainSystem.PREFIX + "§7Du bist ausgeschienden!");
 
     }
 

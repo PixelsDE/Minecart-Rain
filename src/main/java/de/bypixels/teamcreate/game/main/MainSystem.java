@@ -5,7 +5,7 @@ import de.bypixels.teamcreate.game.events.*;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
 import de.bypixels.teamcreate.game.util.DataAboutGame;
 import de.bypixels.teamcreate.game.util.api.WinDetection;
-import de.bypixels.teamcreate.game.util.api.checks.*;
+
 import de.bypixels.teamcreate.game.util.api.specialEvents.PlayerDropOnGround;
 import de.bypixels.teamcreate.game.util.api.specialEvents.PlayerWinEvent;
 import org.bukkit.Bukkit;
@@ -46,7 +46,7 @@ public final class MainSystem extends JavaPlugin implements Listener {
 
     private static boolean start;
 
-    public static String PREFIX = "§7[§6MinecartRain§7]§f ";
+    public static String PREFIX;
 
     //List of Player they are Playing
     public static List<Player> isPlaying = new ArrayList<>();
@@ -54,6 +54,7 @@ public final class MainSystem extends JavaPlugin implements Listener {
 
     //@param Minecart ArrayList of ALL spawned Minecarts
     public static List<Minecart> spawnedMinecarts = new ArrayList<>();
+
 
     @Override
     public void onEnable() {
@@ -121,6 +122,7 @@ public final class MainSystem extends JavaPlugin implements Listener {
         pluginManager.registerEvents(new MinecartDespawnOnGround(), this);
         pluginManager.registerEvents(new MinecartDamage(), this);
         pluginManager.registerEvents(this, this);
+        pluginManager.registerEvents(new MinecartJoinEvent(), this);
 
         MainSystem.getPlugin().getCommand("start").setExecutor(new CMDstartGame());
         MainSystem.getPlugin().getCommand("dataofgame").setExecutor(new CMDsetDatasOfGame());
@@ -134,11 +136,8 @@ public final class MainSystem extends JavaPlugin implements Listener {
         MainSystem.getPlugin().getCommand("removeminecarts").setExecutor(new CMDremove());
         MainSystem.getPlugin().getCommand("teleportinminecart").setExecutor(new CMDteleportInMinecart());
 
-        try {
-            checkForExceptions();
-        } catch (CheckException check) {
-            check.getExceptionString();
-        }
+        DataAboutGame.setPREFIX(DataAboutGame.getPREFIX());
+
         Bukkit.getConsoleSender().sendMessage(MainSystem.PREFIX + "§aTh Plugin is: ON!");
     }
 
@@ -194,11 +193,4 @@ public final class MainSystem extends JavaPlugin implements Listener {
         }
     }
 
-
-    public static void checkForExceptions() throws CheckException {
-        new ExceptionWinHighLowerMinecartSpawnHigh().lower();
-        new ExceptionMinecartDepawnHighLowerMinecartSpawnHigh().lower();
-        new ExceptionWinHighUnEqualsPlayerSpawnHigh().unequals();
-        new ExceptionWinHighHigherMinecartDespawnHigh().higher();
-    }
 }

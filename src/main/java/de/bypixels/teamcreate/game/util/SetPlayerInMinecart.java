@@ -8,6 +8,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /******************************************************************
@@ -23,25 +24,32 @@ import java.util.List;
  *****************************************************************/
 public class SetPlayerInMinecart {
 
+    private ArrayList<Minecart> MinecartsWithPlayer = new ArrayList<>();
 
-    @Deprecated
+
     public SetPlayerInMinecart(Player player) {
         boolean found = false;
         for (int i = 0; i < 200; i++) {
-            List<Entity> entities = player.getNearbyEntities(i,64,i);
+            List<Entity> entities = player.getNearbyEntities(i, 64, i);
             for (Entity e : entities) {
-                if (e.getType().equals(EntityType.MINECART)) {
-                    e.getVehicle().setPassenger(player);
-//do compas thing for that player, also post that code, i would be interested in it..
-                    found = true;
-                    break;
+                if (e instanceof Minecart) {
+                    Minecart minecart = (Minecart) e;
+                    if (!MinecartsWithPlayer.contains(minecart)) {
+                        minecart.addPassenger(player);
+                        MinecartsWithPlayer.add(minecart);
+                        found = true;
+                        break;
+
+                    }
+
+
                 }
             }
             if (found) break;
+
         }
 
     }
-
 
 }
 

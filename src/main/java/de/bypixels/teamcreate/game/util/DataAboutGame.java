@@ -1,6 +1,7 @@
 package de.bypixels.teamcreate.game.util;
 
 
+import de.bypixels.teamcreate.game.main.MainSystem;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -36,6 +37,7 @@ public class DataAboutGame {
     private static int highWhereMinecartsSpawn;
     private static int highWhereMinecartsDespawn;
     private static int highPlayersTeleportetAfterStart;
+    private static String PREFIX;
 
     //Setzt die Daten in die Datei
     public static void setDataInConfig() {
@@ -44,6 +46,7 @@ public class DataAboutGame {
         cfg.addDefault("fallSpeedOfMinecart", 0.5);
         cfg.addDefault("timeBetweenMinecartSpawn", 1);
         cfg.addDefault("highPlayersTeleportetAfterStart", 10);
+        cfg.addDefault("Prefix","§7[§6MinecartRain§7]§f ");
         cfg.options().copyDefaults(true);
         try {
             cfg.save(DataAboutGame.file);
@@ -76,10 +79,20 @@ public class DataAboutGame {
     }
 
     //Some Getters and Setters
+
+
+    public static String getPREFIX() {
+        return cfg.getString("Prefix");
+    }
+
+    public static void setPREFIX(String PREFIX) {
+        DataAboutGame.PREFIX = PREFIX;
+        MainSystem.setPREFIX(getPREFIX());
+    }
+
     public static int getHighPlayersTeleportetAfterStart() {
         return (int) cfg.getDouble("highPlayersTeleportetAfterStart");
     }
-
 
     public static void setHighPlayersTeleportetAfterStart(Player player) {
         DataAboutGame.highPlayersTeleportetAfterStart = (int) player.getLocation().getY();

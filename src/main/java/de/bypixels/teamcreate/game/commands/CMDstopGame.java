@@ -12,6 +12,7 @@ package de.bypixels.teamcreate.game.commands;
  *****************************************************************/
 
 
+import de.bypixels.teamcreate.game.main.MainSystem;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
 import de.bypixels.teamcreate.game.util.MinecartRain;
 import org.bukkit.Bukkit;
@@ -27,20 +28,25 @@ public class CMDstopGame implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("stoprain")){
-        if (sender instanceof Player) {
-            Player player = (Player)sender;
-            if (player.hasPermission("stoprain")){
-                Bukkit.getScheduler().cancelTask(MinecartRain.TaskID);
-                for (Entity entity : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()){
-                    if (entity instanceof Minecart){
-                        entity.remove();
+        if (command.getName().equalsIgnoreCase("stoprain")) {
+            if (sender instanceof Player) {
+                Player player = (Player) sender;
+                if (player.hasPermission("stoprain")) {
+                    Bukkit.getScheduler().cancelTask(MinecartRain.TaskID);
+                    for (Entity entity : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
+                        if (entity instanceof Minecart) {
+                            entity.remove();
+                        }
+                    }
+
+                    for (Player all : Bukkit.getOnlinePlayers()) {
+                        MainSystem.isPlaying.remove(all);
+                        all.sendMessage(MainSystem.getPREFIX() + "§7Danke fuers spielen!");
                     }
                 }
-            }
 
+            }
         }
-    }
         return false;
     }
 }
