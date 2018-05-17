@@ -46,10 +46,10 @@ public class DataAboutArena {
 
     public static void setBackInArenaLocInConfig() {
         cfg = YamlConfiguration.loadConfiguration(file);
-        cfg.set("backInArenaX", backInArenaX);
-        cfg.set("backInArenaY", backInArenaY);
-        cfg.set("backInArenaZ", backInArenaZ);
-        cfg.set("backInArenaWorldName", backInArenaWorldName);
+        cfg.set("BackInArenaX", backInArenaX);
+        cfg.set("BackInArenaY", backInArenaY);
+        cfg.set("BackInArenaZ", backInArenaZ);
+        cfg.set("BackInArenaWorldName", backInArenaWorldName);
         try {
             cfg.save(DataAboutArena.file);
         } catch (IOException e) {
@@ -150,11 +150,6 @@ public class DataAboutArena {
         DataAboutArena.deathWorldY = (int) player.getLocation().getY();
     }
 
-    public static Location getBackInArenaLocation(){
-        World world = Bukkit.getWorld(getBackInArenaWorldName());
-        Location location = new Location(world, backInArenaX, backInArenaY, backInArenaZ);
-        return location;
-    }
     public static int getDeathWorldZ() {
         return cfg.getInt("DeathWorldZ");
     }
@@ -164,7 +159,7 @@ public class DataAboutArena {
     }
 
     public static int getBackInArenaX() {
-        return cfg.getInt("backInArenaX");
+        return cfg.getInt("BackInArenaX");
     }
 
     public static void setBackInArenaX(Player player) {
@@ -172,7 +167,7 @@ public class DataAboutArena {
     }
 
     public static int getBackInArenaY() {
-        return cfg.getInt("backInArenaY");
+        return cfg.getInt("BackInArenaY");
     }
 
     public static void setBackInArenaY(Player player) {
@@ -180,7 +175,7 @@ public class DataAboutArena {
     }
 
     public static int getBackInArenaZ() {
-        return cfg.getInt("backInArenaZ");
+        return cfg.getInt("BackInArenaZ");
     }
 
     public static void setBackInArenaZ(Player player) {
@@ -188,7 +183,7 @@ public class DataAboutArena {
     }
 
     public static String getBackInArenaWorldName() {
-        return cfg.getString("backInArenaWorldName");
+        return cfg.getString("BackInArenaWorldName");
     }
 
     public static void setBackInArenaWorldName(String backInArenaWorldName) {

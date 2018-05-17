@@ -16,6 +16,8 @@ import de.bypixels.teamcreate.game.main.MainSystem;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
 import de.bypixels.teamcreate.game.util.MinecartRain;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,7 +26,6 @@ import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 
 public class CMDstopGame implements CommandExecutor {
-
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -38,25 +39,29 @@ public class CMDstopGame implements CommandExecutor {
                             entity.remove();
                         }
                     }
-
+                    MainSystem.setStart(false);
                     for (Player all : Bukkit.getOnlinePlayers()) {
-                        MainSystem.isPlaying.remove(all);
+                        if (MainSystem.isPlaying.contains(all)) {
+                            MainSystem.isPlaying.remove(all);
+                        }
                         all.sendMessage(MainSystem.getPREFIX() + "§7Danke fuers spielen!");
-                        all.teleport(DataAboutArena.getBackInArenaLocation());
+                        World world = Bukkit.getWorld(DataAboutArena.getBackInArenaWorldName());
+                        Location backInGameLoc = new Location(world, DataAboutArena.getBackInArenaX(), DataAboutArena.getBackInArenaY(), DataAboutArena.getBackInArenaZ());
+                        Bukkit.getScheduler().scheduleSyncDelayedTask(MainSystem.getPlugin(), new Runnable() {
+                            @Override
+                            public void run() {
+                                all.teleport(backInGameLoc);
+                            }
+                        }, 20);
+
                     }
                 }
-
             } else {
                 Bukkit.getScheduler().cancelTask(MinecartRain.TaskID);
                 for (Entity entity : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
                     if (entity instanceof Minecart) {
                         entity.remove();
                     }
-                }
-                for (Player all : Bukkit.getOnlinePlayers()) {
-                    if (MainSystem.isPlaying.contains(all))
-                        MainSystem.isPlaying.remove(all);
-                    all.sendMessage(MainSystem.getPREFIX() + "§7Danke fuers spielen!");
                 }
             }
         }

@@ -3,6 +3,7 @@ package de.bypixels.teamcreate.game.util;
 import de.bypixels.teamcreate.game.main.MainSystem;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Minecart;
@@ -24,34 +25,26 @@ import java.util.List;
  *****************************************************************/
 public class SetPlayerInMinecart {
 
-    private ArrayList<Minecart> MinecartsWithPlayer = new ArrayList<>();
+    private boolean empty = false;
 
     public SetPlayerInMinecart(Player player) {
-        boolean found = false;
-        for (int i = 0; i < 200; i++) {
-            List<Entity> entities = player.getNearbyEntities(i, 64, i);
-            for (Entity e : entities) {
-                if (e instanceof Minecart) {
-                    Minecart minecart = (Minecart) e;
-                    if (!MinecartsWithPlayer.contains(minecart)) {
-                        if (minecart.getPassengers().isEmpty() == true) {
-                            if (!BanishedPlayers.getBanishedPlayers().contains(player.getName())) {
-                                minecart.addPassenger(player);
-                                MinecartsWithPlayer.add(minecart);
-                                found = true;
-                                break;
-                            }
-                        }
+        List<Entity> entities = player.getNearbyEntities(70, 200, 70);
+        Location loc = new Location(player.getWorld(), player.getLocation().getX(), player.getLocation().getY() + 150, player.getLocation().getZ());
+        Minecart nearest = player.getWorld().spawn(loc, Minecart.class);
+        MainSystem.spawnedMinecarts.add(nearest);
+        //Liest Alle Objekte
+        for (Entity entity : entities) {
+            //Es handelt sich um ein Minecart
+            if (entity instanceof Minecart) {
+                if (entity.getPassengers().isEmpty()){
+                if (MainSystem.spawnedMinecarts.contains(entity)) {
+                    if (player.getLocation().distanceSquared(nearest.getLocation()) > player.getLocation().distanceSquared(entity.getLocation())) {
+                        nearest = (Minecart) entity;
                     }
-
-
+                }
                 }
             }
-            if (found) break;
-
         }
-
+        nearest.addPassenger(player);
     }
-
 }
-

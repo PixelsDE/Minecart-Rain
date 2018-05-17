@@ -29,6 +29,7 @@ public class WinDetection {
                 if (player.getLocation().getY() >= DataAboutGame.getHighToWinGame()) {
                     if (!winners.contains(player)) {
                         winners.add(player);
+
                         MainSystem.isPlaying.remove(player);
                         return true;
                     } else {

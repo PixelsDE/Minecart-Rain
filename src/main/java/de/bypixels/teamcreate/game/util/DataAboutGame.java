@@ -2,6 +2,7 @@ package de.bypixels.teamcreate.game.util;
 
 
 import de.bypixels.teamcreate.game.main.MainSystem;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -51,7 +52,7 @@ public class DataAboutGame {
         cfg.addDefault("fallSpeedOfMinecart", 0.5);
         cfg.addDefault("timeBetweenMinecartSpawn", 1);
         cfg.addDefault("highPlayersTeleportetAfterStart", 10);
-        cfg.addDefault("Prefix","§7[§6MinecartRain§7]§f ");
+        cfg.addDefault("Prefix","&7[&6MinecartRain&7]&f ");
         cfg.addDefault("timeBeforeSetInMinecart", 20);
         cfg.options().copyDefaults(true);
         try {
@@ -85,7 +86,7 @@ public class DataAboutGame {
 
     //Some Getters and Setters
     public static String getPREFIX() {
-        return cfg.getString("Prefix");
+        return ChatColor.translateAlternateColorCodes('&', cfg.getString("Prefix"));
     }
 
     public static void setPREFIX(String PREFIX) {

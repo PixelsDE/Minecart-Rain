@@ -16,6 +16,7 @@ import de.bypixels.teamcreate.game.util.DataAboutArena;
 import de.bypixels.teamcreate.game.util.api.specialEvents.PlayerWinEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,15 +29,25 @@ public class WinPlayerMove implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onPlayerMoveToWin(PlayerWinEvent event) {
         Player player = event.getPlayer();
-                for (Player all : Bukkit.getOnlinePlayers()) {
-                    all.sendMessage(MainSystem.PREFIX + "§7Der Spieler: §6" + player.getName() + " §7hat das Ziel erreicht!");
+        for (Player all : Bukkit.getOnlinePlayers()) {
+            all.sendMessage(MainSystem.PREFIX + "§7Der Spieler: §6" + player.getName() + " §7hat das Ziel erreicht!");
+        }
+        //Teleports the Player back in the old Arena
+        World world = Bukkit.getWorld(DataAboutArena.getBackInArenaWorldName());
+        Location backInGameLoc = new Location(world, DataAboutArena.getBackInArenaX(), DataAboutArena.getBackInArenaY(), DataAboutArena.getBackInArenaZ());
+        player.teleport(backInGameLoc);
+        player.sendMessage(MainSystem.PREFIX + "§7Du hast gewonnen und bist zurück im Spiel!");
+        MainSystem.isPlaying.remove(player);
+
+        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+        if (MainSystem.isPlaying.size() == 0){
+             Bukkit.getScheduler().scheduleSyncDelayedTask(MainSystem.getPlugin(), new Runnable() {
+                @Override
+                public void run() {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stoprain");
+
                 }
-                //Teleports the Player back in the old Arena
-                World world = Bukkit.getWorld(DataAboutArena.getBackInArenaWorldName());
-                Location backInGameLoc = new Location(world, DataAboutArena.getBackInArenaX(), DataAboutArena.getBackInArenaY(), DataAboutArena.getArenaBoundZ());
-                player.teleport(backInGameLoc);
-                player.sendMessage(MainSystem.PREFIX + "§7Du hast gewonnen und bist zurück im Spiel!");
-            }
-
-
+            },40);
+        }
+    }
 }

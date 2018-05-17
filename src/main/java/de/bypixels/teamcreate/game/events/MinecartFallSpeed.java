@@ -31,7 +31,6 @@ public class MinecartFallSpeed implements Listener {
             if (MainSystem.spawnedMinecarts.contains(minecart)) {
                 minecart.setGravity(true);
                 minecart.setVelocity(minecart.getVelocity().multiply(DataAboutGame.getFallSpeedOfMinecart()));
-
             }
         }
     }

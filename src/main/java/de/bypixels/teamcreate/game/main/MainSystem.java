@@ -9,6 +9,7 @@ import de.bypixels.teamcreate.game.util.api.WinDetection;
 
 import de.bypixels.teamcreate.game.util.api.specialEvents.PlayerWinEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
@@ -21,6 +22,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public final class MainSystem extends JavaPlugin implements Listener {
@@ -40,18 +42,17 @@ public final class MainSystem extends JavaPlugin implements Listener {
 
     //TODO: SPIELER WERDEN IN ARENA TELEPORTIERT
 
-    public static MainSystem plugin;
+    private static MainSystem plugin;
 
     private static boolean start;
 
-    public static String PREFIX;
+    public static String PREFIX = "§7[§6MinecartRain§7]§f ";
 
     //List of Player they are Playing
     public static List<Player> isPlaying = new ArrayList<>();
 
-
     //@param Minecart ArrayList of ALL spawned Minecarts
-    public static List<Minecart> spawnedMinecarts = new ArrayList<>();
+    public static Collection<Minecart> spawnedMinecarts = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -97,18 +98,23 @@ public final class MainSystem extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        for (Entity minecart : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
-            if (minecart instanceof Minecart) {
-                minecart.remove();
+        try {
+            for (Entity minecart : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
+                if (minecart instanceof Minecart) {
+                    minecart.remove();
+                }
             }
+        } catch (Exception e) {
+
         }
-        Bukkit.getConsoleSender().sendMessage(MainSystem.PREFIX + "§4§aTh Plugin is: OFF!");
+        Bukkit.getConsoleSender().sendMessage(MainSystem.PREFIX + "§4§aTh Plugin is: §4OFF!");
     }
 
 
     //Methode, welche besondere Daten einfügt
     @SuppressWarnings("deprecation")
     public void init(PluginManager pluginManager) {
+
         DataAboutGame.setDataInConfig();
         BanishedPlayers.setInConfig();
 
@@ -132,7 +138,11 @@ public final class MainSystem extends JavaPlugin implements Listener {
         MainSystem.getPlugin().getCommand("stoprain").setExecutor(new CMDstopGame());
         MainSystem.getPlugin().getCommand("removeminecarts").setExecutor(new CMDremove());
 
-        DataAboutGame.setPREFIX(DataAboutGame.getPREFIX());
+        try {
+            DataAboutGame.setPREFIX(ChatColor.translateAlternateColorCodes('&', DataAboutGame.getPREFIX()));
+        } catch (Exception e) {
+
+        }
 
         Bukkit.getConsoleSender().sendMessage(MainSystem.PREFIX + "§aTh Plugin is: ON!");
     }
@@ -148,6 +158,10 @@ public final class MainSystem extends JavaPlugin implements Listener {
         player.sendMessage(MainSystem.PREFIX + message);
     }
 
+    public static void sendAllMessage(){
+
+    }
+
     public static void sendAllPlayerMessage(String message) {
         for (Player all : Bukkit.getOnlinePlayers())
             all.sendMessage(MainSystem.PREFIX + message);
@@ -156,10 +170,14 @@ public final class MainSystem extends JavaPlugin implements Listener {
     //Removed alle Enititys wenns Minecarts sind!
     @Override
     public void onLoad() {
-        for (Entity entity : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
-            if (entity instanceof Minecart) {
-                entity.remove();
+        try {
+            for (Entity entity : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
+                if (entity instanceof Minecart) {
+                    entity.remove();
+                }
             }
+        } catch (Exception e) {
+
         }
     }
 

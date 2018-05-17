@@ -33,8 +33,6 @@ public class MinecartDespawnOnGround implements Listener {
             if (MainSystem.spawnedMinecarts.contains(minecart)) {
                 if (event.getTo().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR || minecart.getLocation().getY() <= DataAboutGame.getHighWhereMinecartsDespawn()) {
                     minecart.remove();
-
-
                 }
 
 

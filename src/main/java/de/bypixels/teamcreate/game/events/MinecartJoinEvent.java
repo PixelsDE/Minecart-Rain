@@ -5,6 +5,7 @@ import de.bypixels.teamcreate.game.util.DataAboutArena;
 import de.bypixels.teamcreate.game.util.api.WinDetection;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
@@ -34,23 +35,33 @@ public class MinecartJoinEvent implements Listener {
             Minecart minecart = (Minecart) event.getVehicle();
             if (event.getEntered() instanceof Player) {
                 Player player = (Player) event.getEntered();
-                if (MainSystem.isStart() == true) {
                     if (MainSystem.isPlaying.contains(player)) {
                         if (MainSystem.spawnedMinecarts.contains(minecart)) {
+                            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
                             if (WinDetection.checkForWin(player) == true){
                                 for (Player all : Bukkit.getOnlinePlayers()) {
                                     all.sendMessage(MainSystem.PREFIX + "§7Der Spieler: §6" + player.getName() + " §7hat das Ziel erreicht!");
                                 }
                                 //Teleports the Player back in the old Arena
                                 World world = Bukkit.getWorld(DataAboutArena.getBackInArenaWorldName());
-                                Location backInGameLoc = new Location(world, DataAboutArena.getBackInArenaX(), DataAboutArena.getBackInArenaY(), DataAboutArena.getArenaBoundZ());
+                                Location backInGameLoc = new Location(world, DataAboutArena.getBackInArenaX(), DataAboutArena.getBackInArenaY(), DataAboutArena.getBackInArenaZ());
                                 player.teleport(backInGameLoc);
+                                player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
                                 player.sendMessage(MainSystem.PREFIX + "§7Du hast gewonnen und bist zurück im Spiel!");
+                                MainSystem.isPlaying.remove(player);
+                                if (MainSystem.isPlaying.size() == 0){
+                                    Bukkit.getScheduler().scheduleSyncDelayedTask(MainSystem.getPlugin(), new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stoprain");
+                                        }
+                                    },40);
+                                }
                             }
                             }
 
                         }
-                    }
+
                 }
             }
         }
