@@ -24,18 +24,16 @@ public class CMDsetDeathLocation implements CommandExecutor {
     //Setzt die Location wo spieler hinkommen wenn sie raus sind
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
-        if (command.getName().equalsIgnoreCase("deathlocation")){
-            if (commandSender instanceof Player){
+        if (command.getName().equalsIgnoreCase("deathlocation")) {
+            if (commandSender instanceof Player) {
                 Player player = (Player) commandSender;
-                if (player.hasPermission("deathlocation")){
-
+                if (player.hasPermission("deathlocation")) {
                     DataAboutArena.setDeathWorldName(player.getWorld().getName());
                     DataAboutArena.setDeathWorldX(player);
                     DataAboutArena.setDeathWorldY(player);
                     DataAboutArena.setDeathWorldZ(player);
                     DataAboutArena.setDeathLocInConfig();
-
-                    player.sendMessage(MainSystem.PREFIX+"§7Du hast die Position gesetzt wo die Spieler hinkommen wenn sie tot sind!");
+                    player.sendMessage(MainSystem.PREFIX + "§7Du hast die Position gesetzt wo die Spieler hinkommen wenn sie tot sind!");
                 }
             }
         }

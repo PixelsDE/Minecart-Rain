@@ -20,8 +20,7 @@ import org.bukkit.entity.Player;
  *****************************************************************/
 
 public class CMDbackInArena implements CommandExecutor {
-
-
+    
     //Command der die Location setzt wo die Spieler hinkommen nach dem Spiel
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {

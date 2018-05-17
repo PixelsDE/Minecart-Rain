@@ -23,9 +23,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class CMDstartGame implements CommandExecutor {
-
     private int TaskID;
-
     //Startet das Spiel
     @Deprecated
     @Override
@@ -96,7 +94,7 @@ public class CMDstartGame implements CommandExecutor {
                                     for (Player all : Bukkit.getOnlinePlayers()) {
                                         all.sendMessage(MainSystem.getPREFIX()+"§7Das Spiel beginnt. Viel Glück!");
                                         if (!BanishedPlayers.getBanishedPlayers().contains(all.getName())) {
-                                          SetPlayerInMinecart setPlayerInMinecart = new SetPlayerInMinecart(all);
+                                          new SetPlayerInMinecart(all);
                                         }
                                     }
                                     Bukkit.getScheduler().cancelTask(TaskID);

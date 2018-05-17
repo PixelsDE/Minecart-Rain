@@ -23,8 +23,6 @@ import java.io.IOException;
 
 public class CMDsetMinecartSpawnHigh implements CommandExecutor {
 
-
-
     //Command der die Höhe der Minecarts zum Spawnen setzt
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {

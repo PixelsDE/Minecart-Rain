@@ -52,7 +52,6 @@ public class PlayerHitGround implements Listener {
                 @Override
                 public void run() {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stoprain");
-
                 }
             },40);
         }

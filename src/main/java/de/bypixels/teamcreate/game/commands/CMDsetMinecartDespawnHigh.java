@@ -40,16 +40,10 @@ public class CMDsetMinecartDespawnHigh implements CommandExecutor {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
                     player.sendMessage(MainSystem.PREFIX+"§7Du hast die Höhe der Minecarts zum Despawnen gesetzt!");
-
                 }
-
             }
-
         }
-
-
         return false;
 
     }

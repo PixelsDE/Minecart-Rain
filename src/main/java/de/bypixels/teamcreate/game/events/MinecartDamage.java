@@ -31,6 +31,6 @@ public class MinecartDamage implements Listener {
                 minecart.setDamage(0);
             }
         }
-        }
     }
+}
 
