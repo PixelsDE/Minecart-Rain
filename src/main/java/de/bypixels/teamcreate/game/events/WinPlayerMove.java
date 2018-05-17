@@ -13,6 +13,7 @@ package de.bypixels.teamcreate.game.events;
 
 import de.bypixels.teamcreate.game.main.MainSystem;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
+import de.bypixels.teamcreate.game.util.DataAboutGame;
 import de.bypixels.teamcreate.game.util.api.specialEvents.PlayerWinEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -32,22 +33,21 @@ public class WinPlayerMove implements Listener {
         for (Player all : Bukkit.getOnlinePlayers()) {
             all.sendMessage(MainSystem.PREFIX + "§7Der Spieler: §6" + player.getName() + " §7hat das Ziel erreicht!");
         }
-        //Teleports the Player back in the old Arena
+        MainSystem.winner.add(event.getPlayer());
+        //Teleports the Player back into the old Arena.
         World world = Bukkit.getWorld(DataAboutArena.getBackInArenaWorldName());
         Location backInGameLoc = new Location(world, DataAboutArena.getBackInArenaX(), DataAboutArena.getBackInArenaY(), DataAboutArena.getBackInArenaZ());
         player.teleport(backInGameLoc);
         player.sendMessage(MainSystem.PREFIX + "§7Du hast gewonnen und bist zurück im Spiel!");
         MainSystem.isPlaying.remove(player);
-
-        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
-        if (MainSystem.isPlaying.size() == 0){
-             Bukkit.getScheduler().scheduleSyncDelayedTask(MainSystem.getPlugin(), new Runnable() {
+        if (MainSystem.winner.size() == DataAboutGame.getAmountOfPlayerToStop() || MainSystem.isPlaying.size() == 0) {
+            Bukkit.getScheduler().scheduleSyncDelayedTask(MainSystem.getPlugin(), new Runnable() {
                 @Override
                 public void run() {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stoprain");
-
                 }
-            },40);
+            }, 40);
         }
+        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
     }
 }

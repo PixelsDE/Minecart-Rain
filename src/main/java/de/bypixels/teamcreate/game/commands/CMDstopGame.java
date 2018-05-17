@@ -17,6 +17,7 @@ import de.bypixels.teamcreate.game.util.DataAboutArena;
 import de.bypixels.teamcreate.game.util.MinecartRain;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,7 +26,11 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 
+import java.security.KeyStore;
+import java.util.*;
+
 public class CMDstopGame implements CommandExecutor {
+
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -33,38 +38,44 @@ public class CMDstopGame implements CommandExecutor {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (player.hasPermission("stoprain")) {
-                    Bukkit.getScheduler().cancelTask(MinecartRain.TaskID);
-                    for (Entity entity : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
-                        if (entity instanceof Minecart) {
-                            entity.remove();
-                        }
-                    }
-                    MainSystem.setStart(false);
-                    for (Player all : Bukkit.getOnlinePlayers()) {
-                        if (MainSystem.isPlaying.contains(all)) {
-                            MainSystem.isPlaying.remove(all);
-                        }
-                        all.sendMessage(MainSystem.getPREFIX() + "§7Danke fuers spielen!");
-                        World world = Bukkit.getWorld(DataAboutArena.getBackInArenaWorldName());
-                        Location backInGameLoc = new Location(world, DataAboutArena.getBackInArenaX(), DataAboutArena.getBackInArenaY(), DataAboutArena.getBackInArenaZ());
-                        Bukkit.getScheduler().scheduleSyncDelayedTask(MainSystem.getPlugin(), new Runnable() {
-                            @Override
-                            public void run() {
-                                all.teleport(backInGameLoc);
-                            }
-                        }, 20);
-
-                    }
+                    done();
+                } else {
+                    //If no Permission!
                 }
             } else {
-                Bukkit.getScheduler().cancelTask(MinecartRain.TaskID);
-                for (Entity entity : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
-                    if (entity instanceof Minecart) {
-                        entity.remove();
-                    }
-                }
+                done();
             }
         }
         return false;
+    }
+
+
+    private void done() {
+        Bukkit.getScheduler().cancelTask(MinecartRain.TaskID);
+        for (Entity entity : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
+            if (entity instanceof Minecart) {
+                entity.remove();
+            }
+        }
+        MainSystem.setStart(false);
+        for (Player all : Bukkit.getOnlinePlayers()) {
+            if (MainSystem.isPlaying.contains(all)) {
+                MainSystem.isPlaying.remove(all);
+            }
+
+            all.sendMessage(MainSystem.getPREFIX() + "§7Danke fuers spielen!");
+            all.playSound(all.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+            World world = Bukkit.getWorld(DataAboutArena.getBackInArenaWorldName());
+            Location backInGameLoc = new Location(world, DataAboutArena.getBackInArenaX(), DataAboutArena.getBackInArenaY(), DataAboutArena.getBackInArenaZ());
+            Bukkit.getScheduler().scheduleSyncDelayedTask(MainSystem.getPlugin(), new Runnable() {
+                @Override
+                public void run() {
+                    all.teleport(backInGameLoc);
+                    Bukkit.getScheduler().cancelTask(MinecartRain.TaskID);
+                }
+            }, 20);
+
+        }
+
     }
 }

@@ -67,12 +67,12 @@ public class CMDsetDatasOfGame implements CommandExecutor {
                             }
                             player.sendMessage(MainSystem.PREFIX + "Du hast die Fallgeschwindigkeit der Minecarts auf: " + args[1] + " gesetzt!");
                         } else {
-                            player.sendMessage(MainSystem.PREFIX + "Bitte benutze /dataofgame [boundaryOfMinecartSpawn, highToWinGame, timeToSpawnMinecart, fallSpeedOfMinecart] + WERT (Bei fallSpeedOfMinecart handelt es sich um einen float!) ");
+                            player.sendMessage(MainSystem.PREFIX + "Bitte benutze /dataofgame [boundaryOfMinecartSpawn, highToWinGame, timeBetweenMinecartSpawn, fallSpeedOfMinecart] + WERT (Bei fallSpeedOfMinecart handelt es sich um einen float!) ");
 
                         }
 
                     } else {
-                        player.sendMessage(MainSystem.PREFIX + "Bitte benutze /dataofgame [boundaryOfMinecartSpawn, highToWinGame, timeToSpawnMinecart, fallSpeedOfMinecart] + WERT (Bei fallSpeedOfMinecart handelt es sich um einen float!) ");
+                        player.sendMessage(MainSystem.PREFIX + "Bitte benutze /dataofgame [boundaryOfMinecartSpawn, highToWinGame, timeBetweenMinecartSpawn, fallSpeedOfMinecart] + WERT (Bei fallSpeedOfMinecart handelt es sich um einen float!) ");
 
                     }
                 }

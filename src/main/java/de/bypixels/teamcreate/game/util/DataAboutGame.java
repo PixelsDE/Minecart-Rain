@@ -42,6 +42,7 @@ public class DataAboutGame {
     private static int highPlayersTeleportetAfterStart;
     private static int timeBeforeSetInMinecart;
     private static String PREFIX;
+    private static int amountOfPlayerToStop;
 
 
     //Setzt die Daten in die Datei
@@ -54,6 +55,7 @@ public class DataAboutGame {
         cfg.addDefault("highPlayersTeleportetAfterStart", 10);
         cfg.addDefault("Prefix","&7[&6MinecartRain&7]&f ");
         cfg.addDefault("timeBeforeSetInMinecart", 20);
+        cfg.addDefault("amountOfPlayerToStop", 3);
         cfg.options().copyDefaults(true);
         try {
             cfg.save(DataAboutGame.file);
@@ -92,6 +94,14 @@ public class DataAboutGame {
     public static void setPREFIX(String PREFIX) {
         DataAboutGame.PREFIX = PREFIX;
         MainSystem.setPREFIX(getPREFIX());
+    }
+
+    public static int getAmountOfPlayerToStop() {
+        return (int) cfg.getInt("amountOfPlayerToStop");
+    }
+
+    public static void setAmountOfPlayerToStop(int amountOfPlayerToStop) {
+        DataAboutGame.amountOfPlayerToStop = amountOfPlayerToStop;
     }
 
     public static int getTimeBeforeSetInMinecart() {

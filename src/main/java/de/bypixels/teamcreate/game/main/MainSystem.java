@@ -39,8 +39,8 @@ public final class MainSystem extends JavaPlugin implements Listener {
      *   Public accessibility or other use                            *
      *   Requires the express written consent of PixelsDE | Daniel.   *
      *****************************************************************/
+    //TODO: Sagen wer ganz unten ist! Ranking!
 
-    //TODO: SPIELER WERDEN IN ARENA TELEPORTIERT
 
     private static MainSystem plugin;
 
@@ -54,6 +54,7 @@ public final class MainSystem extends JavaPlugin implements Listener {
     //@param Minecart ArrayList of ALL spawned Minecarts
     public static Collection<Minecart> spawnedMinecarts = new ArrayList<>();
 
+    public static ArrayList<Player> winner = new ArrayList<>();
     @Override
     public void onEnable() {
         plugin = this;
@@ -119,7 +120,7 @@ public final class MainSystem extends JavaPlugin implements Listener {
         BanishedPlayers.setInConfig();
 
         setStart(false);
-        pluginManager.registerEvents(new PlayerHitGround(), this);
+       // pluginManager.registerEvents(new PlayerHitGround(), this);
         pluginManager.registerEvents(new WinPlayerMove(), this);
         pluginManager.registerEvents(new MinecartFallSpeed(), this);
         pluginManager.registerEvents(new MinecartDespawnOnGround(), this);

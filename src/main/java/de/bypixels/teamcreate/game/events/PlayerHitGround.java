@@ -45,6 +45,12 @@ public class PlayerHitGround implements Listener {
         if (MainSystem.isPlaying.size() == 1) {
             for (Player all : Bukkit.getOnlinePlayers()) {
                 all.sendMessage(MainSystem.getPREFIX() + "§7Der Spieler: §6" + MainSystem.isPlaying.get(0).getName() + " §7hat gewonnen!");
+                Bukkit.getScheduler().scheduleSyncDelayedTask(MainSystem.getPlugin(), new Runnable() {
+                    @Override
+                    public void run() {
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stoprain");
+                    }
+                },40);
             }
         }
         if (MainSystem.isPlaying.size() == 0){
