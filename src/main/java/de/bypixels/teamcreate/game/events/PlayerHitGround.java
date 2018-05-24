@@ -41,7 +41,6 @@ public class PlayerHitGround implements Listener {
         player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND,  99, 1);
         MainSystem.isPlaying.remove(player);
         //Nachricht wenn nur noch 1 Spieler am Leben ist!
-        String winnerName;
         if (MainSystem.isPlaying.size() == 1) {
             for (Player all : Bukkit.getOnlinePlayers()) {
                 all.sendMessage(MainSystem.getPREFIX() + "§7Der Spieler: §6" + MainSystem.isPlaying.get(0).getName() + " §7hat gewonnen!");

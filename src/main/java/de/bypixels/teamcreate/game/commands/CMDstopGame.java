@@ -15,6 +15,7 @@ package de.bypixels.teamcreate.game.commands;
 import de.bypixels.teamcreate.game.main.MainSystem;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
 import de.bypixels.teamcreate.game.util.MinecartRain;
+import de.bypixels.teamcreate.game.util.SortedHashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -57,6 +58,7 @@ public class CMDstopGame implements CommandExecutor {
                 entity.remove();
             }
         }
+        SortedHashMap.sort();
         MainSystem.setStart(false);
         for (Player all : Bukkit.getOnlinePlayers()) {
             if (MainSystem.isPlaying.contains(all)) {
@@ -72,6 +74,7 @@ public class CMDstopGame implements CommandExecutor {
                 public void run() {
                     all.teleport(backInGameLoc);
                     Bukkit.getScheduler().cancelTask(MinecartRain.TaskID);
+
                 }
             }, 20);
 

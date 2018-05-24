@@ -5,6 +5,7 @@ import de.bypixels.teamcreate.game.events.*;
 import de.bypixels.teamcreate.game.util.BanishedPlayers;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
 import de.bypixels.teamcreate.game.util.DataAboutGame;
+import de.bypixels.teamcreate.game.util.SortedHashMap;
 import de.bypixels.teamcreate.game.util.api.WinDetection;
 
 import de.bypixels.teamcreate.game.util.api.specialEvents.PlayerWinEvent;
@@ -55,6 +56,7 @@ public final class MainSystem extends JavaPlugin implements Listener {
     public static Collection<Minecart> spawnedMinecarts = new ArrayList<>();
 
     public static ArrayList<Player> winner = new ArrayList<>();
+
     @Override
     public void onEnable() {
         plugin = this;
@@ -120,7 +122,11 @@ public final class MainSystem extends JavaPlugin implements Listener {
         BanishedPlayers.setInConfig();
 
         setStart(false);
-       // pluginManager.registerEvents(new PlayerHitGround(), this);
+
+        try { if (DataAboutGame.isDeathOnDropOnGround()) {
+                pluginManager.registerEvents(new PlayerHitGround(), this);
+            } } catch (NullPointerException e) {}
+
         pluginManager.registerEvents(new WinPlayerMove(), this);
         pluginManager.registerEvents(new MinecartFallSpeed(), this);
         pluginManager.registerEvents(new MinecartDespawnOnGround(), this);
@@ -145,6 +151,8 @@ public final class MainSystem extends JavaPlugin implements Listener {
 
         }
 
+        SortedHashMap sortedHashMap = new SortedHashMap();
+
         Bukkit.getConsoleSender().sendMessage(MainSystem.PREFIX + "§aTh Plugin is: ON!");
     }
 
@@ -159,7 +167,7 @@ public final class MainSystem extends JavaPlugin implements Listener {
         player.sendMessage(MainSystem.PREFIX + message);
     }
 
-    public static void sendAllMessage(){
+    public static void sendAllMessage() {
 
     }
 

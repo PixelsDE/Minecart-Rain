@@ -29,10 +29,11 @@ public class DataAboutGame {
     }
 
 
-    private static File file = new File("plugins/Minecart-Rain/config.yml");
+    public static File file = new File("plugins/Minecart-Rain/config.yml");
     public static FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 
 
+    private static boolean deathOnDropOnGround;
     private static int boundaryOfMinecartSpawn;
     private static int highToWinGame;
     private static int timeBetweenMinecartSpawn;
@@ -56,6 +57,7 @@ public class DataAboutGame {
         cfg.addDefault("Prefix","&7[&6MinecartRain&7]&f ");
         cfg.addDefault("timeBeforeSetInMinecart", 20);
         cfg.addDefault("amountOfPlayerToStop", 3);
+        cfg.addDefault("deathOnDropOnGround", false);
         cfg.options().copyDefaults(true);
         try {
             cfg.save(DataAboutGame.file);
@@ -87,6 +89,16 @@ public class DataAboutGame {
     }
 
     //Some Getters and Setters
+
+
+    public static boolean isDeathOnDropOnGround() {
+        return cfg.getBoolean("deathOnDropOnGround");
+    }
+
+    public static void setDeathOnDropOnGround(boolean deathOnDropOnGround) {
+        DataAboutGame.deathOnDropOnGround = deathOnDropOnGround;
+    }
+
     public static String getPREFIX() {
         return ChatColor.translateAlternateColorCodes('&', cfg.getString("Prefix"));
     }
