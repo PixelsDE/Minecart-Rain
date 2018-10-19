@@ -12,6 +12,7 @@ package de.bypixels.teamcreate.game.commands;
  *****************************************************************/
 
 
+import de.bypixels.teamcreate.game.main.MainSystem;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -35,6 +36,8 @@ public class CMDremove implements CommandExecutor {
                            minecart.remove();
                        }
                    }
+               }else{
+                   player.sendMessage(MainSystem.getPREFIX()+ "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
                }
            }
        }

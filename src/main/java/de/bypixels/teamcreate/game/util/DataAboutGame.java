@@ -40,7 +40,7 @@ public class DataAboutGame {
     private static float fallSpeedOfMinecart;
     private static int highWhereMinecartsSpawn;
     private static int highWhereMinecartsDespawn;
-    private static int highPlayersTeleportetAfterStart;
+
     private static int timeBeforeSetInMinecart;
     private static String PREFIX;
     private static int amountOfPlayerToStop;
@@ -53,11 +53,12 @@ public class DataAboutGame {
         cfg.addDefault("highToWinGame", 50);
         cfg.addDefault("fallSpeedOfMinecart", 0.5);
         cfg.addDefault("timeBetweenMinecartSpawn", 1);
-        cfg.addDefault("highPlayersTeleportetAfterStart", 10);
         cfg.addDefault("Prefix","&7[&6MinecartRain&7]&f ");
         cfg.addDefault("timeBeforeSetInMinecart", 20);
         cfg.addDefault("amountOfPlayerToStop", 3);
         cfg.addDefault("deathOnDropOnGround", false);
+        cfg.addDefault("highWhereMinecartsSpawn", 130);
+        cfg.addDefault("highWhereMinecartsDespawn", 70);
         cfg.options().copyDefaults(true);
         try {
             cfg.save(DataAboutGame.file);
@@ -124,13 +125,7 @@ public class DataAboutGame {
         DataAboutGame.timeBeforeSetInMinecart = timeBeforeSetInMinecart;
     }
 
-    public static int getHighPlayersTeleportetAfterStart() {
-        return (int) cfg.getDouble("highPlayersTeleportetAfterStart");
-    }
 
-    public static void setHighPlayersTeleportetAfterStart(Player player) {
-        DataAboutGame.highPlayersTeleportetAfterStart = (int) player.getLocation().getY();
-    }
 
     public static int getBoundaryOfMinecartSpawn() {
         return cfg.getInt("boundaryOfMinecartSpawn");

@@ -36,6 +36,8 @@ public class CMDreloadConfig implements CommandExecutor {
                     DataAboutArena.cfg = YamlConfiguration.loadConfiguration(DataAboutArena.getFile());
                     BanishedPlayers.cfg = YamlConfiguration.loadConfiguration(BanishedPlayers.getFile());
                     player.sendMessage(MainSystem.PREFIX + "§7All Files Reloaded");
+                }else{
+                    player.sendMessage(MainSystem.getPREFIX()+ "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
                 }
             }else{
                 DataAboutGame.cfg = YamlConfiguration.loadConfiguration(DataAboutGame.getFile());

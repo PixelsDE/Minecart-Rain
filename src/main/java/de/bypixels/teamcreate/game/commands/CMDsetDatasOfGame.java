@@ -66,8 +66,18 @@ public class CMDsetDatasOfGame implements CommandExecutor {
                                 e.printStackTrace();
                             }
                             player.sendMessage(MainSystem.PREFIX + "Du hast die Fallgeschwindigkeit der Minecarts auf: " + args[1] + " gesetzt!");
-                        } else {
-                            player.sendMessage(MainSystem.PREFIX + "Bitte benutze /dataofgame [boundaryOfMinecartSpawn, highToWinGame, timeBetweenMinecartSpawn, fallSpeedOfMinecart] + WERT (Bei fallSpeedOfMinecart handelt es sich um einen float!) ");
+                        } else  if (args[0].equalsIgnoreCase("timeBeforeSetInMinecart")) {
+                            DataAboutGame.setFallSpeedOfMinecart(Integer.valueOf(args[1]));
+                            DataAboutGame.getCfg().set("timeBeforeSetInMinecart", Integer.valueOf(args[1]));
+                            try {
+                                DataAboutGame.getCfg().save(DataAboutGame.getFile());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            player.sendMessage(MainSystem.PREFIX + "Du hast die Zeit vor dem Start auf: " + args[1] + " gesetzt!");
+
+                        }else{
+                            player.sendMessage(MainSystem.PREFIX + "Bitte benutze /dataofgame [timeBeforeSetInMinecart ,boundaryOfMinecartSpawn, highToWinGame, timeBetweenMinecartSpawn, fallSpeedOfMinecart] + WERT (Bei fallSpeedOfMinecart handelt es sich um einen float!) ");
 
                         }
 
@@ -75,6 +85,8 @@ public class CMDsetDatasOfGame implements CommandExecutor {
                         player.sendMessage(MainSystem.PREFIX + "Bitte benutze /dataofgame [boundaryOfMinecartSpawn, highToWinGame, timeBetweenMinecartSpawn, fallSpeedOfMinecart] + WERT (Bei fallSpeedOfMinecart handelt es sich um einen float!) ");
 
                     }
+                }else{
+                    player.sendMessage(MainSystem.getPREFIX()+ "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
                 }
             }
         }

@@ -29,6 +29,8 @@ import org.bukkit.event.vehicle.VehicleEnterEvent;
 
 public class MinecartJoinEvent implements Listener {
 
+
+
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onJoinIntoMinecart(VehicleEnterEvent event) {
         if (event.getVehicle() instanceof Minecart) {
@@ -37,7 +39,7 @@ public class MinecartJoinEvent implements Listener {
                 Player player = (Player) event.getEntered();
                 if (MainSystem.isPlaying.contains(player)) {
                     if (MainSystem.spawnedMinecarts.contains(minecart)) {
-                        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+                        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 2, 2);
                         if (WinDetection.checkForWin(player) == true) {
                             for (Player all : Bukkit.getOnlinePlayers()) {
                                 all.sendMessage(MainSystem.PREFIX + "§7Der Spieler: §6" + player.getName() + " §7hat das Ziel erreicht!");
@@ -46,7 +48,7 @@ public class MinecartJoinEvent implements Listener {
                             World world = Bukkit.getWorld(DataAboutArena.getBackInArenaWorldName());
                             Location backInGameLoc = new Location(world, DataAboutArena.getBackInArenaX(), DataAboutArena.getBackInArenaY(), DataAboutArena.getBackInArenaZ());
                             player.teleport(backInGameLoc);
-                            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+                            player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 2, 2);
                             player.sendMessage(MainSystem.PREFIX + "§7Du hast gewonnen und bist zurück im Spiel!");
                             MainSystem.isPlaying.remove(player);
                             if (MainSystem.isPlaying.size() == 0) {

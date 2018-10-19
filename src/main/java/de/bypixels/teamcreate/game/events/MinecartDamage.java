@@ -22,6 +22,7 @@ import org.bukkit.event.vehicle.VehicleDamageEvent;
 public class MinecartDamage implements Listener {
 
 
+    //Event wenn das Minecraft Grade zerstörtz wird dann wird das  EVENT Gecancelt ist also wirklich wichtig!
     @EventHandler(ignoreCancelled = true)
     public void onVehicleDamage(VehicleDamageEvent event) {
         if (event.getVehicle() instanceof Minecart) {

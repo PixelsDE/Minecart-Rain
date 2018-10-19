@@ -28,9 +28,14 @@ public class SetPlayerInMinecart {
     private boolean empty = false;
 
     public SetPlayerInMinecart(Player player) {
+        if (DataAboutGame.isDeathOnDropOnGround() == true) {
+            Location locationPlayer = player.getLocation().clone();
+            locationPlayer.add(locationPlayer.getX(), locationPlayer.getY() + 20, locationPlayer.getZ());
+            player.teleport(locationPlayer);
+        }
         List<Entity> entities = player.getNearbyEntities(70, 200, 70);
-        Location loc = new Location(player.getWorld(), player.getLocation().getX(), player.getLocation().getY() + 150, player.getLocation().getZ());
-        Minecart nearest = player.getWorld().spawn(loc, Minecart.class);
+        Location location = new Location(player.getWorld(), player.getLocation().getX(), player.getLocation().getY() + 150, player.getLocation().getZ());
+        Minecart nearest = player.getWorld().spawn(location, Minecart.class);
         MainSystem.spawnedMinecarts.add(nearest);
         //Liest Alle Objekte
         for (Entity entity : entities) {

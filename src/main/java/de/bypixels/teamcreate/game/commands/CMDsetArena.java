@@ -40,6 +40,8 @@ public class CMDsetArena implements CommandExecutor {
 
                     player.sendMessage(MainSystem.PREFIX+"§7Du hast die Arenamitte gesetzt!");
 
+                }else{
+                    player.sendMessage(MainSystem.getPREFIX()+ "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
                 }
             }
         }

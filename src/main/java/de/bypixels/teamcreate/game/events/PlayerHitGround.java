@@ -2,6 +2,7 @@ package de.bypixels.teamcreate.game.events;
 
 import de.bypixels.teamcreate.game.main.MainSystem;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
+import de.bypixels.teamcreate.game.util.api.specialEvents.PlayerDropOnGround;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -28,7 +29,7 @@ public class PlayerHitGround implements Listener {
 
     //Teleportiert den Spieler zur DeathLoc wenn er unter Y... kommt
     @EventHandler(ignoreCancelled = true)
-    public void onDroponGround(de.bypixels.teamcreate.game.util.api.specialEvents.PlayerDropOnGround event) {
+    public void onDroponGround(PlayerDropOnGround event) {
         Player player = event.getPlayer();
         MainSystem.isPlaying.remove(player);
         World world = Bukkit.getWorld(DataAboutArena.getDeathWorldName());
@@ -40,6 +41,7 @@ public class PlayerHitGround implements Listener {
         player.sendMessage(MainSystem.PREFIX + "§7Du bist ausgeschienden!");
         player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND,  99, 1);
         MainSystem.isPlaying.remove(player);
+
         //Nachricht wenn nur noch 1 Spieler am Leben ist!
         if (MainSystem.isPlaying.size() == 1) {
             for (Player all : Bukkit.getOnlinePlayers()) {

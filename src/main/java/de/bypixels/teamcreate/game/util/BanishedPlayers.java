@@ -6,6 +6,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /******************************************************************
@@ -29,7 +30,7 @@ public class BanishedPlayers {
 
     private static File file = new File("plugins/Minecart-Rain/banished.yml");
     public static FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-    private static List<String> banishedPlayers = new ArrayList<>();
+    private static Collection<String> banishedPlayers = new ArrayList<>();
 
 
     public static void setInConfig(){

@@ -39,7 +39,9 @@ public class CMDsetMinecartSpawnHigh implements CommandExecutor {
                         e.printStackTrace();
                     }
                         player.sendMessage(MainSystem.PREFIX+"§7Du hast die Höhe der Minecarts zum Spawnen gesetzt!");
-                    }
+                    }else{
+                    player.sendMessage(MainSystem.getPREFIX()+ "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
+                }
                 }
             }
 

@@ -19,7 +19,7 @@ public class PlayerWinEvent extends org.bukkit.event.Event implements org.bukkit
         this.player = player;
     }
 
-    Player player;
+    private Player player;
     public static HandlerList handlers = new HandlerList();
     public boolean cancelled = false;
 

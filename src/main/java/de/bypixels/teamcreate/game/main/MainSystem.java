@@ -9,6 +9,7 @@ import de.bypixels.teamcreate.game.util.SortedHashMap;
 import de.bypixels.teamcreate.game.util.api.WinDetection;
 
 import de.bypixels.teamcreate.game.util.api.specialEvents.PlayerWinEvent;
+import de.bypixels.teamcreate.game.util.sql.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -19,6 +20,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -40,7 +42,6 @@ public final class MainSystem extends JavaPlugin implements Listener {
      *   Public accessibility or other use                            *
      *   Requires the express written consent of PixelsDE | Daniel.   *
      *****************************************************************/
-    //TODO: Sagen wer ganz unten ist! Ranking!
 
 
     private static MainSystem plugin;
@@ -63,7 +64,7 @@ public final class MainSystem extends JavaPlugin implements Listener {
         DataAboutGame.setDataInConfig();
         init(Bukkit.getPluginManager());
 
-
+        mySQLClass.createFile();
         try {
             for (Entity minecart : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
                 if (minecart instanceof Minecart) {
@@ -74,7 +75,12 @@ public final class MainSystem extends JavaPlugin implements Listener {
             MainSystem.printInConsole("Du musst erst die Welt festlegen!");
         }
 
+        MySQLConnect();
+        Bukkit.getConsoleSender().sendMessage(MainSystem.PREFIX + "§aTh Plugin is: ON!");
+
     }
+
+    public static MySQL mySQLClass = new MySQL();
 
 
     //Some gettters and Setters
@@ -110,10 +116,16 @@ public final class MainSystem extends JavaPlugin implements Listener {
         } catch (Exception e) {
 
         }
+        MySQL.disconnect();
         Bukkit.getConsoleSender().sendMessage(MainSystem.PREFIX + "§4§aTh Plugin is: §4OFF!");
     }
 
 
+    private static void MySQLConnect(){
+        if (mySQLClass.getCfg().getBoolean("MySQL") == true) {
+            MySQL.connect();
+        }
+    }
     //Methode, welche besondere Daten einfügt
     @SuppressWarnings("deprecation")
     public void init(PluginManager pluginManager) {
@@ -123,9 +135,16 @@ public final class MainSystem extends JavaPlugin implements Listener {
 
         setStart(false);
 
-        try { if (DataAboutGame.isDeathOnDropOnGround()) {
+
+
+
+        //Config man kann entscheiden ob jemand raus ist!
+        try {
+            if (DataAboutGame.isDeathOnDropOnGround()) {
                 pluginManager.registerEvents(new PlayerHitGround(), this);
-            } } catch (NullPointerException e) {}
+            }
+        } catch (NullPointerException e) {
+        }
 
         pluginManager.registerEvents(new WinPlayerMove(), this);
         pluginManager.registerEvents(new MinecartFallSpeed(), this);
@@ -146,23 +165,28 @@ public final class MainSystem extends JavaPlugin implements Listener {
         MainSystem.getPlugin().getCommand("removeminecarts").setExecutor(new CMDremove());
 
         try {
+
             DataAboutGame.setPREFIX(ChatColor.translateAlternateColorCodes('&', DataAboutGame.getPREFIX()));
+
         } catch (Exception e) {
 
         }
 
         SortedHashMap sortedHashMap = new SortedHashMap();
 
-        Bukkit.getConsoleSender().sendMessage(MainSystem.PREFIX + "§aTh Plugin is: ON!");
+
+
     }
 
     //Methode, welche Text mit @param Text in die Konsole sendet
+
     public static void printInConsole(String text) {
         Bukkit.getConsoleSender().sendMessage(MainSystem.PREFIX + text);
     }
 
 
     //Methode, welche besonderen Text einem Spieler sendet
+
     public static void sendPlayerMessage(Player player, String message) {
         player.sendMessage(MainSystem.PREFIX + message);
     }
@@ -177,17 +201,22 @@ public final class MainSystem extends JavaPlugin implements Listener {
     }
 
     //Removed alle Enititys wenns Minecarts sind!
+
     @Override
     public void onLoad() {
         try {
             for (Entity entity : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
                 if (entity instanceof Minecart) {
                     entity.remove();
+
                 }
+
             }
+
         } catch (Exception e) {
 
         }
+
     }
 
 
@@ -201,7 +230,9 @@ public final class MainSystem extends JavaPlugin implements Listener {
 
                 }
             }
+
         }
+
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -211,7 +242,22 @@ public final class MainSystem extends JavaPlugin implements Listener {
             if (MainSystem.isStart() == true) {
                 Bukkit.getPluginManager().callEvent(new PlayerWinEvent(player));
             }
+
         }
+
     }
+
+
+    @EventHandler
+    public void onMinecartMoveEvent(VehicleEnterEvent event){
+        if (event.getVehicle() instanceof Minecart){
+            Minecart minecart = (Minecart) event.getVehicle();
+
+
+            //Todo:  Event fertig machen!!! Wenn MIneccart über y = ... ist (Wert aus Config auslesen)
+        }
+
+    }
+
 
 }

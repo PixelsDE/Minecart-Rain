@@ -22,6 +22,7 @@ import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
 
 public class MinecartDespawnOnGround implements Listener {
@@ -37,4 +38,5 @@ public class MinecartDespawnOnGround implements Listener {
             }
         }
     }
+
 }

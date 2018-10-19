@@ -16,6 +16,7 @@ package de.bypixels.teamcreate.game.commands;
 import de.bypixels.teamcreate.game.main.MainSystem;
 import de.bypixels.teamcreate.game.util.*;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,6 +25,7 @@ import org.bukkit.entity.Player;
 
 public class CMDstartGame implements CommandExecutor {
     private int TaskID;
+
     //Startet das Spiel
     @Deprecated
     @Override
@@ -33,68 +35,60 @@ public class CMDstartGame implements CommandExecutor {
                 Player player = (Player) sender;
                 if (player.hasPermission("start")) {
                     for (Player all : Bukkit.getOnlinePlayers()) {
-                        if (!BanishedPlayers.getBanishedPlayers().contains(all.getName()))
+                        if (!BanishedPlayers.getBanishedPlayers().contains(all.getName()) && all.getGameMode() != GameMode.ADVENTURE) {
                             MainSystem.isPlaying.add(all);
-                        all.sendMessage(MainSystem.PREFIX + "§aDas Spiel hat begonnen viel Glück!");
-                        all.teleport(DataAboutArena.getArenaMiddle());
-                        MainSystem.setStart(false);
+                            all.sendMessage(MainSystem.PREFIX + "§aDas Spiel hat begonnen viel Glück!");
+                            all.teleport(DataAboutArena.getArenaMiddle());
+                            MainSystem.setStart(false);
+                        }
                     }
                     MinecartRain.startMinecartRain();
                     TaskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(MainSystem.getPlugin(), new Runnable() {
-                        int i = DataAboutGame.getTimeBeforeSetInMinecart();
+                        int timer = DataAboutGame.getTimeBeforeSetInMinecart();
 
                         @Override
                         public void run() {
-                            switch (i) {
+                            switch (timer) {
+                                case 60:
+                                    startMesage(timer);
+                                    break;
+                                case 45:
+                                    startMesage(timer);
+                                    break;
                                 case 30:
-                                    for (Player all : Bukkit.getOnlinePlayers()) {
-                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
-                                        all.playSound(all.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);}
+                                    startMesage(timer);
                                     break;
                                 case 20:
-                                    for (Player all : Bukkit.getOnlinePlayers()) {
-                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
-                                        all.playSound(all.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);}
+                                    startMesage(timer);
+                                    break;
+                                case 15:
+                                    startMesage(timer);
                                     break;
                                 case 10:
-                                    for (Player all : Bukkit.getOnlinePlayers()) {
-                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
-                                        all.playSound(all.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);}
+                                    startMesage(timer);
                                     break;
                                 case 5:
-                                    for (Player all : Bukkit.getOnlinePlayers()) {
-                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
-                                        all.playSound(all.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);}
+                                    startMesage(timer);
                                     break;
                                 case 4:
-                                    for (Player all : Bukkit.getOnlinePlayers()) {
-                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
-                                        all.playSound(all.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1); }
-                                    break;
+                                    startMesage(timer);
                                 case 3:
-                                    for (Player all : Bukkit.getOnlinePlayers()) {
-                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
-                                        all.playSound(all.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
-                                    }
+                                    startMesage(timer);
                                     break;
                                 case 2:
-                                    for (Player all : Bukkit.getOnlinePlayers()) {
-                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunden!");
-
-                                        all.playSound(all.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);}
+                                    startMesage(timer);
                                     break;
                                 case 1:
-                                    for (Player all : Bukkit.getOnlinePlayers()) {
-                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + i + " Sekunde!");
-                                        all.playSound(all.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
-                                    }
+                                    startMesage(timer);
                                     break;
                                 case 0:
                                     MainSystem.setStart(true);
                                     for (Player all : Bukkit.getOnlinePlayers()) {
-                                        all.sendMessage(MainSystem.getPREFIX()+"§7Das Spiel beginnt. Viel Glück!");
+                                        all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel beginnt. Viel Glück!");
                                         if (!BanishedPlayers.getBanishedPlayers().contains(all.getName())) {
-                                          new SetPlayerInMinecart(all);
+                                            if (all.getGameMode() != GameMode.SPECTATOR) {
+                                                new SetPlayerInMinecart(all);
+                                            }
                                         }
                                     }
                                     Bukkit.getScheduler().cancelTask(TaskID);
@@ -102,9 +96,11 @@ public class CMDstartGame implements CommandExecutor {
                                 default:
                                     break;
                             }
-                            i = i - 1;
+                            timer -= 1;
                         }
                     }, 20, 20);
+                }else{
+                    player.sendMessage(MainSystem.getPREFIX()+ "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
                 }
 
             }
@@ -113,4 +109,21 @@ public class CMDstartGame implements CommandExecutor {
     }
 
 
+    private void startMesage(int timer) {
+        if (timer > 1) {
+            for (Player all : Bukkit.getOnlinePlayers()) {
+                all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + timer + " Sekunden!");
+                all.playSound(all.getLocation(), Sound.BLOCK_LAVA_POP, 2, 2);
+            }
+
+        } else if (timer == 1) {
+            for (Player all : Bukkit.getOnlinePlayers()) {
+                all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + timer + " Sekunde!");
+                all.playSound(all.getLocation(), Sound.BLOCK_LAVA_POP, 2, 2);
+            }
+        } else {
+
+        }
+
+    }
 }

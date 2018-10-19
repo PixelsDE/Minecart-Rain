@@ -13,14 +13,16 @@ package de.bypixels.teamcreate.game.util.api;
 
 import de.bypixels.teamcreate.game.main.MainSystem;
 import de.bypixels.teamcreate.game.util.DataAboutGame;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class WinDetection {
 
-    public static List<Player> winners = new ArrayList<>();
+    public static Collection<Player> winners = new ArrayList<>();
 
     //Method that gives you the winning Player if the Player is above a special location it returns true
     public static boolean checkForWin(Player player) {
@@ -28,10 +30,11 @@ public class WinDetection {
             if (MainSystem.isStart() == true) {
                 if (player.getLocation().getY() >= DataAboutGame.getHighToWinGame()) {
                     if (!winners.contains(player)) {
-                        winners.add(player);
-
-                        MainSystem.isPlaying.remove(player);
-                        return true;
+                        if (player.getGameMode() != GameMode.SPECTATOR) {
+                            winners.add(player);
+                            MainSystem.isPlaying.remove(player);
+                            return true;
+                        }
                     } else {
                         return false;
                     }

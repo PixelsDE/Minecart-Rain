@@ -34,6 +34,8 @@ public class CMDsetDeathLocation implements CommandExecutor {
                     DataAboutArena.setDeathWorldZ(player);
                     DataAboutArena.setDeathLocInConfig();
                     player.sendMessage(MainSystem.PREFIX + "§7Du hast die Position gesetzt wo die Spieler hinkommen wenn sie tot sind!");
+                }else{
+                    player.sendMessage(MainSystem.getPREFIX()+ "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
                 }
             }
         }
