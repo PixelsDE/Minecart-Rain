@@ -32,7 +32,7 @@ public class SortedHashMap {
                 if (!MainSystem.winner.contains(allPlayer)) {
                     playerhigh.put((int) allPlayer.getLocation().getY(), allPlayer.getName());
                 }else{
-                    playerhigh.put(DataAboutGame.getHighToWinGame(), allPlayer.getName());
+                  /*  playerhigh.put(DataAboutGame.getHighToWinGame(), allPlayer.getName());*/
                 }
             }
         }

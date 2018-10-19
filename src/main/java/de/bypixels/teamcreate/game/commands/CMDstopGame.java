@@ -43,7 +43,7 @@ public class CMDstopGame implements CommandExecutor {
                 } else {
                     //If no Permission!
 
-                    player.sendMessage(MainSystem.getPREFIX()+ "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
+                    player.sendMessage(MainSystem.getPREFIX() + "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
 
                 }
             } else {
@@ -56,18 +56,16 @@ public class CMDstopGame implements CommandExecutor {
 
 
     private void done() {
+        SortedHashMap.sortTheMap();
+        MainSystem.setStart(false);
         Bukkit.getScheduler().cancelTask(MinecartRain.TaskID);
         for (Entity entity : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
             if (entity instanceof Minecart) {
                 entity.remove();
             }
         }
-        SortedHashMap.sortTheMap();
-        MainSystem.setStart(false);
+
         for (Player all : Bukkit.getOnlinePlayers()) {
-
-
-
 
             World world = Bukkit.getWorld(DataAboutArena.getBackInArenaWorldName());
             Location backInGameLoc = new Location(world, DataAboutArena.getBackInArenaX(), DataAboutArena.getBackInArenaY(), DataAboutArena.getBackInArenaZ());
@@ -79,16 +77,15 @@ public class CMDstopGame implements CommandExecutor {
                     all.teleport(backInGameLoc);
 
                     Bukkit.getScheduler().cancelTask(MinecartRain.TaskID);
-                    all.sendMessage(MainSystem.getPREFIX() + "§7Danke, dass du §6"+all.getName()+" §7gespielt hast!");
+                    all.sendMessage(MainSystem.getPREFIX() + "§7Danke, dass du §6" + all.getName() + " §7gespielt hast!");
                     all.playSound(all.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 2, 2);
                     MainSystem.winner.remove(all);
 
                     MainSystem.isPlaying.remove(all);
 
-
                     //Reloadet den Server!
                     MainSystem.getPlugin().getServer().reload();
-                    System.out.println(MainSystem.getPREFIX()+ "§aDer Server wurde erfolgreich reloadet!");
+                    System.out.println(MainSystem.getPREFIX() + "§aDer Server wurde erfolgreich reloadet!");
                 }
             }, 5);
 

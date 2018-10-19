@@ -112,13 +112,13 @@ public class CMDstartGame implements CommandExecutor {
     private void startMesage(int timer) {
         if (timer > 1) {
             for (Player all : Bukkit.getOnlinePlayers()) {
-                all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + timer + " Sekunden!");
+                all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: §6" + timer + " §7Sekunden!");
                 all.playSound(all.getLocation(), Sound.BLOCK_LAVA_POP, 2, 2);
             }
 
         } else if (timer == 1) {
             for (Player all : Bukkit.getOnlinePlayers()) {
-                all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: " + timer + " Sekunde!");
+                all.sendMessage(MainSystem.getPREFIX() + "§7Das Spiel startet in: §6" + timer + " §7Sekunde!");
                 all.playSound(all.getLocation(), Sound.BLOCK_LAVA_POP, 2, 2);
             }
         } else {

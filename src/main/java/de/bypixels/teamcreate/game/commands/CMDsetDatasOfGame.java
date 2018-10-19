@@ -58,8 +58,8 @@ public class CMDsetDatasOfGame implements CommandExecutor {
                             }
                             player.sendMessage(MainSystem.PREFIX + "Du hast die Boundary der Minecarts auf: " + args[1] + " gesetzt!");
                         } else if (args[0].equalsIgnoreCase("fallSpeedOfMinecart")) {
-                            DataAboutGame.setFallSpeedOfMinecart(Integer.valueOf(args[1]));
-                            DataAboutGame.getCfg().set("fallSpeedOfMinecart", Integer.valueOf(args[1]));
+                            DataAboutGame.setFallSpeedOfMinecart(Float.valueOf(args[1]));
+                            DataAboutGame.getCfg().set("fallSpeedOfMinecart", Float.valueOf(args[1]));
                             try {
                                 DataAboutGame.getCfg().save(DataAboutGame.getFile());
                             } catch (IOException e) {
@@ -67,7 +67,7 @@ public class CMDsetDatasOfGame implements CommandExecutor {
                             }
                             player.sendMessage(MainSystem.PREFIX + "Du hast die Fallgeschwindigkeit der Minecarts auf: " + args[1] + " gesetzt!");
                         } else  if (args[0].equalsIgnoreCase("timeBeforeSetInMinecart")) {
-                            DataAboutGame.setFallSpeedOfMinecart(Integer.valueOf(args[1]));
+                            DataAboutGame.setTimeBeforeSetInMinecart(Integer.valueOf(args[1]));
                             DataAboutGame.getCfg().set("timeBeforeSetInMinecart", Integer.valueOf(args[1]));
                             try {
                                 DataAboutGame.getCfg().save(DataAboutGame.getFile());

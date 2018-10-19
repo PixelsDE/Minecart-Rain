@@ -37,6 +37,8 @@ public class WinPlayerMove implements Listener {
 
         //Fügt den Spieler in die Winnerliste ein!
         MainSystem.winner.add(event.getPlayer());
+        if (!MainSystem.winner.contains(event.getPlayer()))
+            MainSystem.winner.add(event.getPlayer());
 
 
 
