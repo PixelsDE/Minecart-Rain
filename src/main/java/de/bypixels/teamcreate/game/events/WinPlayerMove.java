@@ -35,9 +35,9 @@ public class WinPlayerMove implements Listener {
         }
 
         //Fügt den Spieler in die Winnerliste ein!
-        MinecartRain.getWinner().add(event.getPlayer());
+        MinecartRain.getWinner().add(event.getPlayer().getName());
         if (!MinecartRain.getWinner().contains(event.getPlayer()))
-            MinecartRain.getWinner().add(event.getPlayer());
+            MinecartRain.getWinner().add(event.getPlayer().getName());
 
 
         World world = Bukkit.getWorld(DataAboutArena.getBackInArenaWorldName());

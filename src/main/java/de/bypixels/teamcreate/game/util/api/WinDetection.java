@@ -21,7 +21,7 @@ import java.util.Collection;
 
 public class WinDetection {
 
-    public static Collection<Player> winners = new ArrayList<>();
+    private static Collection<Player> winners = new ArrayList<>();
 
     //Method that gives you the winning Player if the Player is above a special location it returns true
     public static boolean checkForWin(Player player) {

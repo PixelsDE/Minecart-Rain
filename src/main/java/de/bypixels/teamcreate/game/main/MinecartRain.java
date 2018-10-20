@@ -63,9 +63,9 @@ public final class MinecartRain extends JavaPlugin implements Listener {
     //@param Minecart ArrayList of ALL spawned Minecarts
     private static Collection<Minecart> spawnedMinecarts = new ArrayList<>();
 
-    private static ArrayList<Player> winner = new ArrayList<>();
+    private static List<String> winner = new ArrayList<String>();
 
-    public static ArrayList<Player> getWinner() {
+    public static List<String> getWinner() {
         return winner;
     }
 

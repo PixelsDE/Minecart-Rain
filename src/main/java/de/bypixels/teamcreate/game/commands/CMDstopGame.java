@@ -76,7 +76,7 @@ public class CMDstopGame implements CommandExecutor {
                     Bukkit.getScheduler().cancelTask(MinecartsFallFromSky.TaskID);
                     all.sendMessage(MinecartRain.getPREFIX() + "§7Danke, dass du §6" + all.getName() + " §7gespielt hast!");
                     all.playSound(all.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 2, 2);
-                    MinecartRain.getWinner().remove(all);
+                    MinecartRain.getWinner().remove(all.getName());
 
                     MinecartRain.getPlayingPlayers().remove(all);
 
