@@ -1,6 +1,6 @@
 package de.bypixels.teamcreate.game.commands;
 
-import de.bypixels.teamcreate.game.main.MainSystem;
+import de.bypixels.teamcreate.game.main.MinecartRain;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -38,10 +38,10 @@ public class CMDsetArena implements CommandExecutor {
                     DataAboutArena.setArenaInConfig();
 
 
-                    player.sendMessage(MainSystem.PREFIX+"§7Du hast die Arenamitte gesetzt!");
+                    player.sendMessage(MinecartRain.PREFIX+"§7Du hast die Arenamitte gesetzt!");
 
                 }else{
-                    player.sendMessage(MainSystem.getPREFIX()+ "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
+                    player.sendMessage(MinecartRain.getPREFIX()+ "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
                 }
             }
         }

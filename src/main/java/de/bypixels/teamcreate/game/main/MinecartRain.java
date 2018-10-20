@@ -2,10 +2,7 @@ package de.bypixels.teamcreate.game.main;
 
 import de.bypixels.teamcreate.game.commands.*;
 import de.bypixels.teamcreate.game.events.*;
-import de.bypixels.teamcreate.game.util.BanishedPlayers;
-import de.bypixels.teamcreate.game.util.DataAboutArena;
-import de.bypixels.teamcreate.game.util.DataAboutGame;
-import de.bypixels.teamcreate.game.util.SortedHashMap;
+import de.bypixels.teamcreate.game.util.*;
 import de.bypixels.teamcreate.game.util.api.WinDetection;
 
 import de.bypixels.teamcreate.game.util.api.specialEvents.PlayerWinEvent;
@@ -18,6 +15,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
@@ -28,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public final class MainSystem extends JavaPlugin implements Listener {
+public final class MinecartRain extends JavaPlugin implements Listener {
 
 
     /******************************************************************
@@ -44,19 +42,32 @@ public final class MainSystem extends JavaPlugin implements Listener {
      *****************************************************************/
 
 
-    private static MainSystem plugin;
+    private static MinecartRain plugin;
 
     private static boolean start;
+
+
+    public static List<Player> getPlayingPlayers() {
+        return Playing;
+    }
+
+    public static Collection<Minecart> getSpawnedMinecarts() {
+        return spawnedMinecarts;
+    }
 
     public static String PREFIX = "§7[§6MinecartRain§7]§f ";
 
     //List of Player they are Playing
-    public static List<Player> isPlaying = new ArrayList<>();
+    private static List<Player> Playing = new ArrayList<>();
 
     //@param Minecart ArrayList of ALL spawned Minecarts
-    public static Collection<Minecart> spawnedMinecarts = new ArrayList<>();
+    private static Collection<Minecart> spawnedMinecarts = new ArrayList<>();
 
-    public static ArrayList<Player> winner = new ArrayList<>();
+    private static ArrayList<Player> winner = new ArrayList<>();
+
+    public static ArrayList<Player> getWinner() {
+        return winner;
+    }
 
     @Override
     public void onEnable() {
@@ -72,11 +83,11 @@ public final class MainSystem extends JavaPlugin implements Listener {
                 }
             }
         } catch (Exception e) {
-            MainSystem.printInConsole("Du musst erst die Welt festlegen!");
+            MinecartRain.printInConsole("Du musst erst die Welt festlegen!");
         }
 
         MySQLConnect();
-        Bukkit.getConsoleSender().sendMessage(MainSystem.PREFIX + "§aTh Plugin is: ON!");
+        Bukkit.getConsoleSender().sendMessage(MinecartRain.PREFIX + "§aTh Plugin is: ON!");
 
     }
 
@@ -84,7 +95,7 @@ public final class MainSystem extends JavaPlugin implements Listener {
 
 
     //Some gettters and Setters
-    public static MainSystem getPlugin() {
+    public static MinecartRain getPlugin() {
         return plugin;
     }
 
@@ -97,11 +108,11 @@ public final class MainSystem extends JavaPlugin implements Listener {
     }
 
     public static void setStart(boolean start) {
-        MainSystem.start = start;
+        MinecartRain.start = start;
     }
 
     public static void setPREFIX(String PREFIX) {
-        MainSystem.PREFIX = PREFIX;
+        MinecartRain.PREFIX = PREFIX;
     }
 
 
@@ -117,7 +128,7 @@ public final class MainSystem extends JavaPlugin implements Listener {
 
         }
         MySQL.disconnect();
-        Bukkit.getConsoleSender().sendMessage(MainSystem.PREFIX + "§4§aTh Plugin is: §4OFF!");
+        Bukkit.getConsoleSender().sendMessage(MinecartRain.PREFIX + "§4§aTh Plugin is: §4OFF!");
     }
 
 
@@ -153,16 +164,16 @@ public final class MainSystem extends JavaPlugin implements Listener {
         pluginManager.registerEvents(this, this);
         pluginManager.registerEvents(new MinecartJoinEvent(), this);
 
-        MainSystem.getPlugin().getCommand("start").setExecutor(new CMDstartGame());
-        MainSystem.getPlugin().getCommand("dataofgame").setExecutor(new CMDsetDatasOfGame());
-        MainSystem.getPlugin().getCommand("setarena").setExecutor(new CMDsetArena());
-        MainSystem.getPlugin().getCommand("deathlocation").setExecutor(new CMDsetDeathLocation());
-        MainSystem.getPlugin().getCommand("backinarena").setExecutor(new CMDbackInArena());
-        MainSystem.getPlugin().getCommand("highminecartspawn").setExecutor(new CMDsetMinecartSpawnHigh());
-        MainSystem.getPlugin().getCommand("highminecartdespawn").setExecutor(new CMDsetMinecartDespawnHigh());
-        MainSystem.getPlugin().getCommand("configreload").setExecutor(new CMDreloadConfig());
-        MainSystem.getPlugin().getCommand("stoprain").setExecutor(new CMDstopGame());
-        MainSystem.getPlugin().getCommand("removeminecarts").setExecutor(new CMDremove());
+        MinecartRain.getPlugin().getCommand("start").setExecutor(new CMDstartGame());
+        MinecartRain.getPlugin().getCommand("dataofgame").setExecutor(new CMDsetDatasOfGame());
+        MinecartRain.getPlugin().getCommand("setarena").setExecutor(new CMDsetArena());
+        MinecartRain.getPlugin().getCommand("deathlocation").setExecutor(new CMDsetDeathLocation());
+        MinecartRain.getPlugin().getCommand("backinarena").setExecutor(new CMDbackInArena());
+        MinecartRain.getPlugin().getCommand("highminecartspawn").setExecutor(new CMDsetMinecartSpawnHigh());
+        MinecartRain.getPlugin().getCommand("highminecartdespawn").setExecutor(new CMDsetMinecartDespawnHigh());
+        MinecartRain.getPlugin().getCommand("configreload").setExecutor(new CMDreloadConfig());
+        MinecartRain.getPlugin().getCommand("stoprain").setExecutor(new CMDstopGame());
+        MinecartRain.getPlugin().getCommand("removeminecarts").setExecutor(new CMDremove());
 
         try {
 
@@ -181,14 +192,14 @@ public final class MainSystem extends JavaPlugin implements Listener {
     //Methode, welche Text mit @param Text in die Konsole sendet
 
     public static void printInConsole(String text) {
-        Bukkit.getConsoleSender().sendMessage(MainSystem.PREFIX + text);
+        Bukkit.getConsoleSender().sendMessage(MinecartRain.PREFIX + text);
     }
 
 
     //Methode, welche besonderen Text einem Spieler sendet
 
     public static void sendPlayerMessage(Player player, String message) {
-        player.sendMessage(MainSystem.PREFIX + message);
+        player.sendMessage(MinecartRain.PREFIX + message);
     }
 
     public static void sendAllMessage() {
@@ -197,7 +208,7 @@ public final class MainSystem extends JavaPlugin implements Listener {
 
     public static void sendAllPlayerMessage(String message) {
         for (Player all : Bukkit.getOnlinePlayers())
-            all.sendMessage(MainSystem.PREFIX + message);
+            all.sendMessage(MinecartRain.PREFIX + message);
     }
 
     //Removed alle Enititys wenns Minecarts sind!
@@ -223,8 +234,8 @@ public final class MainSystem extends JavaPlugin implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onDroponGround(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        if (MainSystem.isPlaying.contains(player)) {
-            if (MainSystem.isStart() == true) {
+        if (MinecartRain.getPlayingPlayers().contains(player)) {
+            if (MinecartRain.isStart() == true) {
                 if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR) {
                     Bukkit.getPluginManager().callEvent(new de.bypixels.teamcreate.game.util.api.specialEvents.PlayerDropOnGround(player));
 
@@ -235,11 +246,28 @@ public final class MainSystem extends JavaPlugin implements Listener {
 
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+    public void onEnterMinecartToWin(VehicleEnterEvent event) {
+   Player player = (Player) event.getEntered();
+   if (event.getVehicle() instanceof Minecart){
+       Minecart mInecart = (Minecart) event.getVehicle();
+       if (MinecartRain.spawnedMinecarts.contains(mInecart)){
+           if (WinDetection.checkForWin(player) == true){
+               if (MinecartRain.getPlayingPlayers().contains(player)){
+                   if (MinecartRain.isStart() == true){
+                       Bukkit.getPluginManager().callEvent(new PlayerWinEvent(player));
+                   }
+               }
+           }
+       }
+   }
+    }
+
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onPlayerWin(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         if (WinDetection.checkForWin(player) == true) {
-            if (MainSystem.isStart() == true) {
+            if (MinecartRain.isStart() == true) {
                 Bukkit.getPluginManager().callEvent(new PlayerWinEvent(player));
             }
 

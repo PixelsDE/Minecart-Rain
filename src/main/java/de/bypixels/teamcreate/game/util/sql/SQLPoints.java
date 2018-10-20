@@ -12,9 +12,8 @@ package de.bypixels.teamcreate.game.util.sql;
  *   Requires the express written consent of PixelsDE | Daniel.   *
  *****************************************************************/
 
-import de.bypixels.teamcreate.game.main.MainSystem;
+import de.bypixels.teamcreate.game.main.MinecartRain;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,7 +34,7 @@ public class SQLPoints extends MySQL {
 
     public static boolean isUserExist(String spielername) {
         try {
-            PreparedStatement preparedStatement = MainSystem.mySQLClass.getConnection().prepareStatement("SELECT high FROM Stats WHERE spielername = ?");
+            PreparedStatement preparedStatement = MinecartRain.mySQLClass.getConnection().prepareStatement("SELECT high FROM Stats WHERE spielername = ?");
             preparedStatement.setString(1, spielername);
             ResultSet resultSet = preparedStatement.executeQuery();
             return resultSet.next();
@@ -52,7 +51,7 @@ public class SQLPoints extends MySQL {
 
 
             try {
-                PreparedStatement preparedStatement =  MainSystem.mySQLClass.getConnection().prepareStatement("update Stats set high = 0 WHERE spielername= ?");
+                PreparedStatement preparedStatement =  MinecartRain.mySQLClass.getConnection().prepareStatement("update Stats set high = 0 WHERE spielername= ?");
                 preparedStatement.setString(1, spielername);
 
                 preparedStatement.executeUpdate();
@@ -71,7 +70,7 @@ public class SQLPoints extends MySQL {
 
             if (isUserExist(spielername) == true) {
 
-                PreparedStatement preparedStatement =  MainSystem.mySQLClass.getConnection().prepareStatement("UPDATE Stats SET high = ? WHERE spielername = ?");
+                PreparedStatement preparedStatement =  MinecartRain.mySQLClass.getConnection().prepareStatement("UPDATE Stats SET high = ? WHERE spielername = ?");
                 preparedStatement.setString(2, spielername);
 
                 preparedStatement.setInt(1, amount);
@@ -79,7 +78,7 @@ public class SQLPoints extends MySQL {
                 preparedStatement.executeUpdate();
 
             } else if (isUserExist(spielername) == false) {
-                PreparedStatement preparedStatement =  MainSystem.mySQLClass.getConnection().prepareStatement("INSERT INTO Stats(spielername, high) VALUES (?,?)");
+                PreparedStatement preparedStatement =  MinecartRain.mySQLClass.getConnection().prepareStatement("INSERT INTO Stats(spielername, high) VALUES (?,?)");
 
                 preparedStatement.setString(1, spielername);
                 preparedStatement.setInt(2, amount);
@@ -98,7 +97,7 @@ public class SQLPoints extends MySQL {
     public static Integer getHigh(String spielername) {
         if (isUserExist(spielername) == true) {
             try {
-                PreparedStatement preparedStatement =  MainSystem.mySQLClass.getConnection().prepareStatement("SELECT high FROM Stats WHERE spielername = ?");
+                PreparedStatement preparedStatement =  MinecartRain.mySQLClass.getConnection().prepareStatement("SELECT high FROM Stats WHERE spielername = ?");
                 preparedStatement.setString(1, spielername);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {

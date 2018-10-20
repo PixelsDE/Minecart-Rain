@@ -12,7 +12,7 @@ package de.bypixels.teamcreate.game.commands;
  *****************************************************************/
 
 
-import de.bypixels.teamcreate.game.main.MainSystem;
+import de.bypixels.teamcreate.game.main.MinecartRain;
 import de.bypixels.teamcreate.game.util.BanishedPlayers;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
 import de.bypixels.teamcreate.game.util.DataAboutGame;
@@ -35,15 +35,15 @@ public class CMDreloadConfig implements CommandExecutor {
                     DataAboutGame.cfg = YamlConfiguration.loadConfiguration(DataAboutGame.getFile());
                     DataAboutArena.cfg = YamlConfiguration.loadConfiguration(DataAboutArena.getFile());
                     BanishedPlayers.cfg = YamlConfiguration.loadConfiguration(BanishedPlayers.getFile());
-                    player.sendMessage(MainSystem.PREFIX + "§7All Files Reloaded");
+                    player.sendMessage(MinecartRain.PREFIX + "§7All Files Reloaded");
                 }else{
-                    player.sendMessage(MainSystem.getPREFIX()+ "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
+                    player.sendMessage(MinecartRain.getPREFIX()+ "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
                 }
             }else{
                 DataAboutGame.cfg = YamlConfiguration.loadConfiguration(DataAboutGame.getFile());
                 DataAboutArena.cfg = YamlConfiguration.loadConfiguration(DataAboutArena.getFile());
                 BanishedPlayers.cfg = YamlConfiguration.loadConfiguration(BanishedPlayers.getFile());
-                Bukkit.getConsoleSender().sendMessage(MainSystem.PREFIX +"§7All Files Reloaded");
+                Bukkit.getConsoleSender().sendMessage(MinecartRain.PREFIX +"§7All Files Reloaded");
             }
         }
         return false;

@@ -1,7 +1,6 @@
 package de.bypixels.teamcreate.game.util;
 
-import de.bypixels.teamcreate.game.main.MainSystem;
-import de.bypixels.teamcreate.game.util.sql.MySQL;
+import de.bypixels.teamcreate.game.main.MinecartRain;
 import de.bypixels.teamcreate.game.util.sql.SQLPoints;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -29,7 +28,7 @@ public class SortedHashMap {
         HashMap<Integer, String> playerhigh = new HashMap<Integer, String>();
         for (Player allPlayer : Bukkit.getOnlinePlayers()) {
             if (allPlayer.getGameMode() != GameMode.SPECTATOR) {
-                if (!MainSystem.winner.contains(allPlayer)) {
+                if (!MinecartRain.getWinner().contains(allPlayer)) {
                     playerhigh.put((int) allPlayer.getLocation().getY(), allPlayer.getName());
                 }else{
                   /*  playerhigh.put(DataAboutGame.getHighToWinGame(), allPlayer.getName());*/
@@ -40,12 +39,12 @@ public class SortedHashMap {
 
         HashMap<Integer, String> sortedMap = new HashMap<Integer, String>(playerhigh);
         for (Player all : Bukkit.getOnlinePlayers()) {
-            if (MainSystem.mySQLClass.getCfg().getBoolean("MySQL") == true){
+            if (MinecartRain.mySQLClass.getCfg().getBoolean("MySQL") == true){
                 SQLPoints.update((int) all.getLocation().getY(), all.getName());
             }
-            if (!MainSystem.winner.contains(all)){
+            if (!MinecartRain.getWinner().contains(all)){
                 for (Map.Entry<Integer, String> hoehe : sortedMap.entrySet()) {
-                    all.sendMessage(MainSystem.getPREFIX() + "§7Der Spieler: §6" + all.getPlayer().getName() + " §7hat eine Höhe von: §6" + hoehe.getKey() + " §7erreicht!");
+                    all.sendMessage(MinecartRain.getPREFIX() + "§7Der Spieler: §6" + all.getPlayer().getName() + " §7hat eine Höhe von: §6" + hoehe.getKey() + " §7erreicht!");
 
                 }
             }
@@ -53,10 +52,10 @@ public class SortedHashMap {
 /*
 
             String names = "";
-            for (int number = 0; number >= MainSystem.winner.size(); number++) {
-                names = names + MainSystem.winner.get(number).getName().toString() + ", ";
+            for (int number = 0; number >= MinecartsFallFromSky.winner.size(); number++) {
+                names = names + MinecartsFallFromSky.winner.get(number).getName().toString() + ", ";
             }
-            all.sendMessage(MainSystem.getPREFIX() + "§7Die Spieler: §6" + names + "§7haben das Ziel erreicht!");
+            all.sendMessage(MinecartsFallFromSky.getPREFIX() + "§7Die Spieler: §6" + names + "§7haben das Ziel erreicht!");
 */
 
         }

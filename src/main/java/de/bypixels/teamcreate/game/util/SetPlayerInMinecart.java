@@ -1,15 +1,11 @@
 package de.bypixels.teamcreate.game.util;
 
-import de.bypixels.teamcreate.game.main.MainSystem;
-import org.bukkit.Bukkit;
+import de.bypixels.teamcreate.game.main.MinecartRain;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /******************************************************************
@@ -36,13 +32,13 @@ public class SetPlayerInMinecart {
         List<Entity> entities = player.getNearbyEntities(70, 200, 70);
         Location location = new Location(player.getWorld(), player.getLocation().getX(), player.getLocation().getY() + 150, player.getLocation().getZ());
         Minecart nearest = player.getWorld().spawn(location, Minecart.class);
-        MainSystem.spawnedMinecarts.add(nearest);
+        MinecartRain.getSpawnedMinecarts().add(nearest);
         //Liest Alle Objekte
         for (Entity entity : entities) {
             //Es handelt sich um ein Minecart
             if (entity instanceof Minecart) {
                 if (entity.getPassengers().isEmpty()){
-                if (MainSystem.spawnedMinecarts.contains(entity)) {
+                if (MinecartRain.getSpawnedMinecarts().contains(entity)) {
                     if (player.getLocation().distanceSquared(nearest.getLocation()) > player.getLocation().distanceSquared(entity.getLocation())) {
                         nearest = (Minecart) entity;
                     }

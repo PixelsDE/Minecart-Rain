@@ -1,6 +1,6 @@
 package de.bypixels.teamcreate.game.events;
 
-import de.bypixels.teamcreate.game.main.MainSystem;
+import de.bypixels.teamcreate.game.main.MinecartRain;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
 import de.bypixels.teamcreate.game.util.api.specialEvents.PlayerDropOnGround;
 import org.bukkit.Bukkit;
@@ -31,22 +31,22 @@ public class PlayerHitGround implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onDroponGround(PlayerDropOnGround event) {
         Player player = event.getPlayer();
-        MainSystem.isPlaying.remove(player);
+        MinecartRain.getPlayingPlayers().remove(player);
         World world = Bukkit.getWorld(DataAboutArena.getDeathWorldName());
         Location location = new Location(world, DataAboutArena.getDeathWorldX(), DataAboutArena.getDeathWorldY(), DataAboutArena.getDeathWorldZ());
         player.teleport(location);
         for (Player all : Bukkit.getOnlinePlayers()) {
-            all.sendMessage(MainSystem.PREFIX + "§cDer Spieler: §6" + player.getName() + "§c ist ausgeschieden!");
+            all.sendMessage(MinecartRain.PREFIX + "§cDer Spieler: §6" + player.getName() + "§c ist ausgeschieden!");
         }
-        player.sendMessage(MainSystem.PREFIX + "§7Du bist ausgeschienden!");
+        player.sendMessage(MinecartRain.PREFIX + "§7Du bist ausgeschienden!");
         player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND,  99, 1);
-        MainSystem.isPlaying.remove(player);
+        MinecartRain.getPlayingPlayers().remove(player);
 
         //Nachricht wenn nur noch 1 Spieler am Leben ist!
-        if (MainSystem.isPlaying.size() == 1) {
+        if (MinecartRain.getPlayingPlayers().size() == 1) {
             for (Player all : Bukkit.getOnlinePlayers()) {
-                all.sendMessage(MainSystem.getPREFIX() + "§7Der Spieler: §6" + MainSystem.isPlaying.get(0).getName() + " §7hat gewonnen!");
-                Bukkit.getScheduler().scheduleSyncDelayedTask(MainSystem.getPlugin(), new Runnable() {
+                all.sendMessage(MinecartRain.getPREFIX() + "§7Der Spieler: §6" + MinecartRain.getPlayingPlayers().get(0).getName() + " §7hat gewonnen!");
+                Bukkit.getScheduler().scheduleSyncDelayedTask(MinecartRain.getPlugin(), new Runnable() {
                     @Override
                     public void run() {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stoprain");
@@ -54,8 +54,8 @@ public class PlayerHitGround implements Listener {
                 },40);
             }
         }
-        if (MainSystem.isPlaying.size() == 0){
-            Bukkit.getScheduler().scheduleSyncDelayedTask(MainSystem.getPlugin(), new Runnable() {
+        if (MinecartRain.getPlayingPlayers().size() == 0){
+            Bukkit.getScheduler().scheduleSyncDelayedTask(MinecartRain.getPlugin(), new Runnable() {
                 @Override
                 public void run() {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stoprain");

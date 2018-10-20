@@ -12,7 +12,7 @@ package de.bypixels.teamcreate.game.events;
  *****************************************************************/
 
 
-import de.bypixels.teamcreate.game.main.MainSystem;
+import de.bypixels.teamcreate.game.main.MinecartRain;
 import de.bypixels.teamcreate.game.util.DataAboutGame;
 import org.bukkit.entity.Minecart;
 import org.bukkit.event.EventHandler;
@@ -28,7 +28,7 @@ public class MinecartFallSpeed implements Listener {
     public void onMinecartMove(VehicleMoveEvent event) {
         if (event.getVehicle() instanceof Minecart) {
             Minecart minecart = (Minecart) event.getVehicle();
-            if (MainSystem.spawnedMinecarts.contains(minecart)) {
+            if (MinecartRain.getSpawnedMinecarts().contains(minecart)) {
                 minecart.setGravity(true);
                 minecart.setVelocity(minecart.getVelocity().multiply(DataAboutGame.getFallSpeedOfMinecart()));
             }

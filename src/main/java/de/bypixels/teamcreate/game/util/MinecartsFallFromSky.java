@@ -1,6 +1,5 @@
 package de.bypixels.teamcreate.game.util;
 
-import de.bypixels.teamcreate.game.main.MainSystem;
 import de.bypixels.teamcreate.game.util.api.RandomLocation;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -21,7 +20,7 @@ import java.util.List;
  *   Requires the express written consent of PixelsDE | Daniel.   *
  *****************************************************************/
 
-public class MinecartRain {
+public class MinecartsFallFromSky {
 
     private static World world = Bukkit.getWorld(DataAboutArena.getArenaWorldName());
     public static int TaskID;
@@ -30,11 +29,11 @@ public class MinecartRain {
 
     //Spawned die Minecarts
     public static void startMinecartRain() {
-        TaskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(MainSystem.getPlugin(), new Runnable() {
+        TaskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(de.bypixels.teamcreate.game.main.MinecartRain.getPlugin(), new Runnable() {
             @Override
             public void run() {
                 minecart = world.spawn(RandomLocation.getRandomLocation(), Minecart.class);
-                MainSystem.spawnedMinecarts.add(minecart);
+                de.bypixels.teamcreate.game.main.MinecartRain.getSpawnedMinecarts().add(minecart);
             }
         },  DataAboutGame.getTimeBetweenMinecartSpawn(), DataAboutGame.getTimeBetweenMinecartSpawn());
 

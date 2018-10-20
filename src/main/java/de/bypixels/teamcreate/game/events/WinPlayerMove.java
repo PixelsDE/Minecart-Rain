@@ -11,7 +11,7 @@ package de.bypixels.teamcreate.game.events;
  *   Requires the express written consent of PixelsDE | Daniel.   *
  *****************************************************************/
 
-import de.bypixels.teamcreate.game.main.MainSystem;
+import de.bypixels.teamcreate.game.main.MinecartRain;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
 import de.bypixels.teamcreate.game.util.DataAboutGame;
 import de.bypixels.teamcreate.game.util.api.specialEvents.PlayerWinEvent;
@@ -22,7 +22,6 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerMoveEvent;
 
 public class WinPlayerMove implements Listener {
 
@@ -32,15 +31,13 @@ public class WinPlayerMove implements Listener {
     public void onPlayerMoveToWin(PlayerWinEvent event) {
         Player player = event.getPlayer();
         for (Player all : Bukkit.getOnlinePlayers()) {
-            all.sendMessage(MainSystem.PREFIX + "§7Der Spieler: §6" + player.getName() + " §7hat das Ziel erreicht!");
+            all.sendMessage(MinecartRain.PREFIX + "§7Der Spieler: §6" + player.getName() + " §7hat das Ziel erreicht!");
         }
 
         //Fügt den Spieler in die Winnerliste ein!
-        MainSystem.winner.add(event.getPlayer());
-        if (!MainSystem.winner.contains(event.getPlayer()))
-            MainSystem.winner.add(event.getPlayer());
-
-
+        MinecartRain.getWinner().add(event.getPlayer());
+        if (!MinecartRain.getWinner().contains(event.getPlayer()))
+            MinecartRain.getWinner().add(event.getPlayer());
 
 
         World world = Bukkit.getWorld(DataAboutArena.getBackInArenaWorldName());
@@ -49,13 +46,13 @@ public class WinPlayerMove implements Listener {
         //Teleports the Player back into the old Arena.
         player.teleport(backInGameLoc);
 
-        player.sendMessage(MainSystem.PREFIX + "§7Du hast gewonnen und bist zurück im Spiel!");
+        player.sendMessage(MinecartRain.PREFIX + "§7Du hast gewonnen und bist zurück im Spiel!");
 
-        MainSystem.isPlaying.remove(player);
+        MinecartRain.getPlayingPlayers().remove(player);
 
-        if (MainSystem.winner.size() == DataAboutGame.getAmountOfPlayerToStop() || MainSystem.isPlaying.isEmpty()) {
+        if (MinecartRain.getWinner().size() == DataAboutGame.getAmountOfPlayerToStop() || MinecartRain.getPlayingPlayers().isEmpty()) {
 
-            Bukkit.getScheduler().scheduleSyncDelayedTask(MainSystem.getPlugin(), new Runnable() {
+            Bukkit.getScheduler().scheduleSyncDelayedTask(MinecartRain.getPlugin(), new Runnable() {
 
                 @Override
                 public void run() {

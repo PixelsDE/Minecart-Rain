@@ -1,5 +1,4 @@
 package de.bypixels.teamcreate.game.util.sql;
-import de.bypixels.teamcreate.game.main.MainSystem;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 

@@ -1,6 +1,6 @@
 package de.bypixels.teamcreate.game.commands;
 
-import de.bypixels.teamcreate.game.main.MainSystem;
+import de.bypixels.teamcreate.game.main.MinecartRain;
 import de.bypixels.teamcreate.game.util.DataAboutGame;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -38,7 +38,7 @@ public class CMDsetDatasOfGame implements CommandExecutor {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            player.sendMessage(MainSystem.PREFIX + "Du hast die Boundary der Minecarts auf: " + args[1] + " gesetzt!");
+                            player.sendMessage(MinecartRain.PREFIX + "Du hast die Boundary der Minecarts auf: " + args[1] + " gesetzt!");
                         } else if (args[0].equalsIgnoreCase("highToWinGame")) {
                             DataAboutGame.setHighToWinGame(Integer.valueOf(args[1]));
                             DataAboutGame.getCfg().set("highToWinGame", Integer.valueOf(args[1]));
@@ -47,7 +47,7 @@ public class CMDsetDatasOfGame implements CommandExecutor {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            player.sendMessage(MainSystem.PREFIX + "Du hast die höhe zum Gewinnen auf: " + args[1] + " gesetzt!");
+                            player.sendMessage(MinecartRain.PREFIX + "Du hast die höhe zum Gewinnen auf: " + args[1] + " gesetzt!");
                         } else if (args[0].equalsIgnoreCase("timeBetweenMinecartSpawn")) {
                             DataAboutGame.setTimeBetweenMinecartSpawn(Integer.valueOf(args[1]));
                             DataAboutGame.getCfg().set("timeBetweenMinecartSpawn", Integer.valueOf(args[1]));
@@ -56,7 +56,7 @@ public class CMDsetDatasOfGame implements CommandExecutor {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            player.sendMessage(MainSystem.PREFIX + "Du hast die Boundary der Minecarts auf: " + args[1] + " gesetzt!");
+                            player.sendMessage(MinecartRain.PREFIX + "Du hast die Boundary der Minecarts auf: " + args[1] + " gesetzt!");
                         } else if (args[0].equalsIgnoreCase("fallSpeedOfMinecart")) {
                             DataAboutGame.setFallSpeedOfMinecart(Float.valueOf(args[1]));
                             DataAboutGame.getCfg().set("fallSpeedOfMinecart", Float.valueOf(args[1]));
@@ -65,7 +65,7 @@ public class CMDsetDatasOfGame implements CommandExecutor {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            player.sendMessage(MainSystem.PREFIX + "Du hast die Fallgeschwindigkeit der Minecarts auf: " + args[1] + " gesetzt!");
+                            player.sendMessage(MinecartRain.PREFIX + "Du hast die Fallgeschwindigkeit der Minecarts auf: " + args[1] + " gesetzt!");
                         } else  if (args[0].equalsIgnoreCase("timeBeforeSetInMinecart")) {
                             DataAboutGame.setTimeBeforeSetInMinecart(Integer.valueOf(args[1]));
                             DataAboutGame.getCfg().set("timeBeforeSetInMinecart", Integer.valueOf(args[1]));
@@ -74,19 +74,19 @@ public class CMDsetDatasOfGame implements CommandExecutor {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            player.sendMessage(MainSystem.PREFIX + "Du hast die Zeit vor dem Start auf: " + args[1] + " gesetzt!");
+                            player.sendMessage(MinecartRain.PREFIX + "Du hast die Zeit vor dem Start auf: " + args[1] + " gesetzt!");
 
                         }else{
-                            player.sendMessage(MainSystem.PREFIX + "Bitte benutze /dataofgame [timeBeforeSetInMinecart ,boundaryOfMinecartSpawn, highToWinGame, timeBetweenMinecartSpawn, fallSpeedOfMinecart] + WERT (Bei fallSpeedOfMinecart handelt es sich um einen float!) ");
+                            player.sendMessage(MinecartRain.PREFIX + "Bitte benutze /dataofgame [timeBeforeSetInMinecart ,boundaryOfMinecartSpawn, highToWinGame, timeBetweenMinecartSpawn, fallSpeedOfMinecart] + WERT (Bei fallSpeedOfMinecart handelt es sich um einen float!) ");
 
                         }
 
                     } else {
-                        player.sendMessage(MainSystem.PREFIX + "Bitte benutze /dataofgame [boundaryOfMinecartSpawn, highToWinGame, timeBetweenMinecartSpawn, fallSpeedOfMinecart] + WERT (Bei fallSpeedOfMinecart handelt es sich um einen float!) ");
+                        player.sendMessage(MinecartRain.PREFIX + "Bitte benutze /dataofgame [boundaryOfMinecartSpawn, highToWinGame, timeBetweenMinecartSpawn, fallSpeedOfMinecart] + WERT (Bei fallSpeedOfMinecart handelt es sich um einen float!) ");
 
                     }
                 }else{
-                    player.sendMessage(MainSystem.getPREFIX()+ "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
+                    player.sendMessage(MinecartRain.getPREFIX()+ "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
                 }
             }
         }

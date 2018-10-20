@@ -1,6 +1,6 @@
 package de.bypixels.teamcreate.game.commands;
 
-import de.bypixels.teamcreate.game.main.MainSystem;
+import de.bypixels.teamcreate.game.main.MinecartRain;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -33,9 +33,9 @@ public class CMDsetDeathLocation implements CommandExecutor {
                     DataAboutArena.setDeathWorldY(player);
                     DataAboutArena.setDeathWorldZ(player);
                     DataAboutArena.setDeathLocInConfig();
-                    player.sendMessage(MainSystem.PREFIX + "§7Du hast die Position gesetzt wo die Spieler hinkommen wenn sie tot sind!");
+                    player.sendMessage(MinecartRain.PREFIX + "§7Du hast die Position gesetzt wo die Spieler hinkommen wenn sie tot sind!");
                 }else{
-                    player.sendMessage(MainSystem.getPREFIX()+ "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
+                    player.sendMessage(MinecartRain.getPREFIX()+ "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
                 }
             }
         }

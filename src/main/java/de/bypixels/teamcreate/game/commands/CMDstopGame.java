@@ -12,9 +12,9 @@ package de.bypixels.teamcreate.game.commands;
  *****************************************************************/
 
 
-import de.bypixels.teamcreate.game.main.MainSystem;
+import de.bypixels.teamcreate.game.main.MinecartRain;
 import de.bypixels.teamcreate.game.util.DataAboutArena;
-import de.bypixels.teamcreate.game.util.MinecartRain;
+import de.bypixels.teamcreate.game.util.MinecartsFallFromSky;
 import de.bypixels.teamcreate.game.util.SortedHashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -26,9 +26,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
-
-import java.security.KeyStore;
-import java.util.*;
 
 public class CMDstopGame implements CommandExecutor {
 
@@ -43,12 +40,12 @@ public class CMDstopGame implements CommandExecutor {
                 } else {
                     //If no Permission!
 
-                    player.sendMessage(MainSystem.getPREFIX() + "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
+                    player.sendMessage(MinecartRain.getPREFIX() + "§cDu hast nicht die passenden Rechte um diesen Befehl benutzen!");
 
                 }
             } else {
                 done();
-                Bukkit.getConsoleSender().sendMessage(MainSystem.getPREFIX() + "§cDas Spiel wurde erfolgreich gestoppt!");
+                Bukkit.getConsoleSender().sendMessage(MinecartRain.getPREFIX() + "§cDas Spiel wurde erfolgreich gestoppt!");
             }
         }
         return false;
@@ -57,8 +54,8 @@ public class CMDstopGame implements CommandExecutor {
 
     private void done() {
         SortedHashMap.sortTheMap();
-        MainSystem.setStart(false);
-        Bukkit.getScheduler().cancelTask(MinecartRain.TaskID);
+        MinecartRain.setStart(false);
+        Bukkit.getScheduler().cancelTask(MinecartsFallFromSky.TaskID);
         for (Entity entity : Bukkit.getWorld(DataAboutArena.getArenaWorldName()).getEntities()) {
             if (entity instanceof Minecart) {
                 entity.remove();
@@ -69,23 +66,23 @@ public class CMDstopGame implements CommandExecutor {
 
             World world = Bukkit.getWorld(DataAboutArena.getBackInArenaWorldName());
             Location backInGameLoc = new Location(world, DataAboutArena.getBackInArenaX(), DataAboutArena.getBackInArenaY(), DataAboutArena.getBackInArenaZ());
-            Bukkit.getScheduler().scheduleSyncDelayedTask(MainSystem.getPlugin(), new Runnable() {
+            Bukkit.getScheduler().scheduleSyncDelayedTask(MinecartRain.getPlugin(), new Runnable() {
                 @Override
                 public void run() {
 
                     //Teleportiert die Spieler wieder in die Arena
                     all.teleport(backInGameLoc);
 
-                    Bukkit.getScheduler().cancelTask(MinecartRain.TaskID);
-                    all.sendMessage(MainSystem.getPREFIX() + "§7Danke, dass du §6" + all.getName() + " §7gespielt hast!");
+                    Bukkit.getScheduler().cancelTask(MinecartsFallFromSky.TaskID);
+                    all.sendMessage(MinecartRain.getPREFIX() + "§7Danke, dass du §6" + all.getName() + " §7gespielt hast!");
                     all.playSound(all.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 2, 2);
-                    MainSystem.winner.remove(all);
+                    MinecartRain.getWinner().remove(all);
 
-                    MainSystem.isPlaying.remove(all);
+                    MinecartRain.getPlayingPlayers().remove(all);
 
                     //Reloadet den Server!
-                    MainSystem.getPlugin().getServer().reload();
-                    System.out.println(MainSystem.getPREFIX() + "§aDer Server wurde erfolgreich reloadet!");
+                    MinecartRain.getPlugin().getServer().reload();
+                    System.out.println(MinecartRain.getPREFIX() + "§aDer Server wurde erfolgreich reloadet!");
                 }
             }, 5);
 
